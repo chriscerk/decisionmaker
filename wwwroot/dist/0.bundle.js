@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 45:
+/***/ 41:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15,10 +15,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(13);
-var ng2_bootstrap_1 = __webpack_require__(15);
-var about_routing_module_1 = __webpack_require__(47);
-var about_component_1 = __webpack_require__(46);
+var common_1 = __webpack_require__(11);
+var ng2_bootstrap_1 = __webpack_require__(13);
+var about_routing_module_1 = __webpack_require__(43);
+var about_component_1 = __webpack_require__(42);
 var AboutModule = (function () {
     function AboutModule() {
     }
@@ -43,7 +43,7 @@ exports.AboutModule = AboutModule;
 
 /***/ },
 
-/***/ 46:
+/***/ 42:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63,7 +63,7 @@ var AboutComponent = (function () {
     }
     AboutComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(48)
+            template: __webpack_require__(44)
         }), 
         __metadata('design:paramtypes', [])
     ], AboutComponent);
@@ -74,7 +74,7 @@ exports.AboutComponent = AboutComponent;
 
 /***/ },
 
-/***/ 47:
+/***/ 43:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89,8 +89,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(14);
-var about_component_1 = __webpack_require__(46);
+var router_1 = __webpack_require__(12);
+var about_component_1 = __webpack_require__(42);
 var routes = [
     { path: '', component: about_component_1.AboutComponent }
 ];
@@ -113,7 +113,7 @@ exports.AboutRoutingModule = AboutRoutingModule;
 
 /***/ },
 
-/***/ 48:
+/***/ 44:
 /***/ function(module, exports) {
 
 module.exports = "<h1>About</h1>\r\n<p>A web application for making decisions.</p>";

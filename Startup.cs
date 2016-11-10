@@ -1,3 +1,4 @@
+using decisionmaker.Controllers.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.NodeServices;
@@ -27,7 +28,8 @@ namespace decisionmaker
         {
             // Add framework services.
             services.AddMvc();
-
+            services.AddSignalR(options => options.Hubs.EnableDetailedErrors = true);
+            services.AddSingleton<IDecisionRepository, DecisionRepository>();
             services.AddSwaggerGen();
         }
 
@@ -66,6 +68,7 @@ namespace decisionmaker
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            app.UseSignalR();
         }
     }
 }
