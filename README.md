@@ -1,2 +1,3 @@
-"# decisionmaker" 
-"# decisionmaker" 
+Currently in early development.
+
+.NET Core + Angular Universal
