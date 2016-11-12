@@ -2,16 +2,23 @@
 
 <div *ngIf="goals.length">
 
-    <div *ngFor="let goal of goals">
-        <label for="goalName">Goal Name:</label>
-        <input type="text" [(ngModel)]="goal.name" id="goalName" />&nbsp;
-
-        <label for="goalRank">Rank:</label>
-        <input type="text" [(ngModel)]="goal.rank" id="goalRank" />&nbsp;
-
-        <label for="goalDescription">Description:</label>
-        <input type="text" [(ngModel)]="goal.description" id="goalDescription" />&nbsp;
-        <br />
+    <div *ngFor="let goal of goals" class="input-group input-group-lg">
+        
+        <div class="col-lg-4">
+            <label for="goalName">Goal Name:</label>
+            <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control" />&nbsp;
+        </div>
+        
+        <div class="col-lg-4">
+            <label for="goalRank">Rank:</label>
+            <input type="text" [(ngModel)]="goal.rank" id="goalRank" class="form-control" />&nbsp;
+        </div>
+        
+        <div class="col-lg-4">
+            <label for="goalDescription">Description:</label>
+            <input type="text" [(ngModel)]="goal.description" id="goalDescription" class="form-control" />&nbsp;
+        </div>
+        <br/>
     </div>
 
     <button type='button'>Next</button>

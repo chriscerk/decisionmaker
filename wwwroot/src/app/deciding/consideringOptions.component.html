@@ -2,25 +2,37 @@
 
 <div *ngIf="options.length">
 
-    <div *ngFor="let option of options">
-        <label for="optionName">option Name:</label>
-        <input type="text" [(ngModel)]="option.name" id="optionName" />&nbsp;
+    <div *ngFor="let option of options" class="input-group input-group-lg">
+        
+        <div class="col-lg-6">
+            <label for="optionName">option Name:</label>
+            <input type="text" [(ngModel)]="option.name" id="optionName" class="form-control" />&nbsp;
+        </div>
+        
+        <div class="col-lg-6">
+            <label for="optionDescription">Description:</label>
+            <input type="text" [(ngModel)]="option.description" id="optionDescription" class="form-control" />&nbsp;
+        </div>
+        
         <br />
+        
+        <div class="col-lg-4">
+            <label for="optionDescription">Positive Attributes:</label>
+            <input type="text" [(ngModel)]="option.positiveAttributes" id="optionPositive" class="form-control" />&nbsp;
+        </div>
+        
+        <div class="col-lg-4">
+            <label for="optionDescription">Negative Attributes:</label>
+            <input type="text" [(ngModel)]="option.negativeAttributes" id="optionNegative" class="form-control" />&nbsp;
+        </div>
+        
+        <div class="col-lg-4">
+            <label for="optionDescription">Notes:</label>
+            <input type="text" [(ngModel)]="option.notes" id="optionNotes" class="form-control" />&nbsp;
+        </div>
 
-        <label for="optionDescription">Description:</label>
-        <input type="text" [(ngModel)]="option.description" id="optionDescription" />&nbsp;
-        <br />
-        
-        <label for="optionDescription">Positive Attributes:</label>
-        <input type="text" [(ngModel)]="option.positiveAttributes" id="optionPositive" />&nbsp;
-        <br />
-        
-        <label for="optionDescription">Negative Attributes:</label>
-        <input type="text" [(ngModel)]="option.negativeAttributes" id="optionNegative" />&nbsp;
-        <br />
-        
-        <label for="optionDescription">Notes:</label>
-        <input type="text" [(ngModel)]="option.notes" id="optionNotes" />&nbsp;
+        <br/>
+        <br/>
         <br />
     </div>
 
