@@ -4,7 +4,7 @@ import { IOption } from '../../shared/interfaces.ts';
 import 'rxjs/Rx';
 
 @Injectable()
-export class OptionService {
+export class OptionApiService {
 
     option: IOption;
 

@@ -4,7 +4,7 @@ import { IGoal } from '../../shared/interfaces';
 import 'rxjs/Rx';
 
 @Injectable()
-export class GoalService {
+export class GoalApiService {
 
     constructor(private _http: Http) { }
 

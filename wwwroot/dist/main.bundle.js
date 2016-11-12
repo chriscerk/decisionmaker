@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7bae4191b489b1a7ee1b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "803dc68541f2beb1a4ba"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -811,19 +811,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var option_service_1 = __webpack_require__(13);
 var ConsideringOptionsComponent = (function () {
-    function ConsideringOptionsComponent(_optionService) {
-        this._optionService = _optionService;
+    function ConsideringOptionsComponent(_optionApi) {
+        this._optionApi = _optionApi;
         this.options = [];
     }
     ConsideringOptionsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._optionService.getOptions().subscribe(function (o) { return _this.options = o; });
+        this._optionApi.getOptions().subscribe(function (o) { return _this.options = o; });
     };
     ConsideringOptionsComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(36)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof option_service_1.OptionService !== 'undefined' && option_service_1.OptionService) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof option_service_1.OptionApiService !== 'undefined' && option_service_1.OptionApiService) === 'function' && _a) || Object])
     ], ConsideringOptionsComponent);
     return ConsideringOptionsComponent;
     var _a;
@@ -847,18 +847,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var deciding_service_1 = __webpack_require__(59);
 var DecidingComponent = (function () {
-    function DecidingComponent() {
+    function DecidingComponent(decidingService) {
+        var _this = this;
+        this.decidingService = decidingService;
+        this.history = [];
+        decidingService.goals$.subscribe(function (g) {
+            _this.decision.goals = g;
+            _this.history.push('Goals Updated');
+        });
+        decidingService.options$.subscribe(function (o) {
+            _this.decision.options = o;
+            _this.history.push('Options Updated');
+        });
     }
-    DecidingComponent.prototype.ngOnInit = function () {
-    };
     DecidingComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(37)
+            template: __webpack_require__(37),
+            providers: [deciding_service_1.DecidingService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _a) || Object])
     ], DecidingComponent);
     return DecidingComponent;
+    var _a;
 }());
 exports.DecidingComponent = DecidingComponent;
 
@@ -879,24 +891,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var interfaces_1 = __webpack_require__(61);
 var goal_service_1 = __webpack_require__(12);
+var deciding_service_1 = __webpack_require__(59);
 var EvaluatingGoalsComponent = (function () {
-    function EvaluatingGoalsComponent(_goalService) {
-        this._goalService = _goalService;
-        this.goals = [];
+    function EvaluatingGoalsComponent(_goalApi, _decidingService) {
+        var _this = this;
+        this._goalApi = _goalApi;
+        this._decidingService = _decidingService;
+        this.goals = new Array(3);
+        this.existingGoals = [];
+        this.confirmed = false;
+        this.subscription = _decidingService.goals$.subscribe(function (g) {
+            _this.goals = g;
+        });
     }
     EvaluatingGoalsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._goalService.getGoals().subscribe(function (g) { return _this.goals = g; });
+        this._goalApi.getGoals().subscribe(function (g) { return _this.existingGoals = g; });
     };
+    EvaluatingGoalsComponent.prototype.confirm = function () {
+        this.confirmed = true;
+        this._decidingService.updateGoals(this.goals);
+    };
+    EvaluatingGoalsComponent.prototype.ngOnDestroy = function () {
+        // prevent memory leak when component destroyed
+        this.subscription.unsubscribe();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', (typeof (_a = typeof interfaces_1.IDecision !== 'undefined' && interfaces_1.IDecision) === 'function' && _a) || Object)
+    ], EvaluatingGoalsComponent.prototype, "decision", void 0);
     EvaluatingGoalsComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(38)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof goal_service_1.GoalService !== 'undefined' && goal_service_1.GoalService) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof goal_service_1.GoalApiService !== 'undefined' && goal_service_1.GoalApiService) === 'function' && _b) || Object, (typeof (_c = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _c) || Object])
     ], EvaluatingGoalsComponent);
     return EvaluatingGoalsComponent;
-    var _a;
+    var _a, _b, _c;
 }());
 exports.EvaluatingGoalsComponent = EvaluatingGoalsComponent;
 
@@ -918,22 +951,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var decision_service_1 = __webpack_require__(11);
+var deciding_service_1 = __webpack_require__(59);
 var ResolutionComponent = (function () {
-    function ResolutionComponent(_decisionService) {
-        this._decisionService = _decisionService;
+    function ResolutionComponent(_decisionApi, _DecidingService) {
+        this._decisionApi = _decisionApi;
+        this._DecidingService = _DecidingService;
     }
     ResolutionComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._decisionService.getDecision().subscribe(function (d) { return _this.decision = d; });
+        this._decisionApi.getDecision().subscribe(function (d) { return _this.decision = d; });
     };
     ResolutionComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(39)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof decision_service_1.DecisionService !== 'undefined' && decision_service_1.DecisionService) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _a) || Object, (typeof (_b = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _b) || Object])
     ], ResolutionComponent);
     return ResolutionComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.ResolutionComponent = ResolutionComponent;
 
@@ -974,25 +1009,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(2);
 __webpack_require__(8);
-var DecisionService = (function () {
-    function DecisionService(_http) {
+var DecisionApiService = (function () {
+    function DecisionApiService(_http) {
         this._http = _http;
     }
-    DecisionService.prototype.getDecision = function () {
+    DecisionApiService.prototype.getDecision = function () {
         // return an observable
         return this._http.get('/api/decision')
             .map(function (response) {
             return response.json();
         });
     };
-    DecisionService = __decorate([
+    DecisionApiService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-    ], DecisionService);
-    return DecisionService;
+    ], DecisionApiService);
+    return DecisionApiService;
     var _a;
 }());
-exports.DecisionService = DecisionService;
+exports.DecisionApiService = DecisionApiService;
 
 
 /***/ },
@@ -1013,25 +1048,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(2);
 __webpack_require__(8);
-var GoalService = (function () {
-    function GoalService(_http) {
+var GoalApiService = (function () {
+    function GoalApiService(_http) {
         this._http = _http;
     }
-    GoalService.prototype.getGoals = function () {
+    GoalApiService.prototype.getGoals = function () {
         // return an observable
         return this._http.get('/api/goal')
             .map(function (response) {
             return response.json();
         });
     };
-    GoalService = __decorate([
+    GoalApiService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-    ], GoalService);
-    return GoalService;
+    ], GoalApiService);
+    return GoalApiService;
     var _a;
 }());
-exports.GoalService = GoalService;
+exports.GoalApiService = GoalApiService;
 
 
 /***/ },
@@ -1052,25 +1087,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(2);
 __webpack_require__(8);
-var OptionService = (function () {
-    function OptionService(_http) {
+var OptionApiService = (function () {
+    function OptionApiService(_http) {
         this._http = _http;
     }
-    OptionService.prototype.getOptions = function () {
+    OptionApiService.prototype.getOptions = function () {
         // return an observable
         return this._http.get('/api/option')
             .map(function (response) {
             return response.json();
         });
     };
-    OptionService = __decorate([
+    OptionApiService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-    ], OptionService);
-    return OptionService;
+    ], OptionApiService);
+    return OptionApiService;
     var _a;
 }());
-exports.OptionService = OptionService;
+exports.OptionApiService = OptionApiService;
 
 
 /***/ },
@@ -1539,7 +1574,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A58084%2F__webpack_hmr", __webpack_require__(48)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A58837%2F__webpack_hmr", __webpack_require__(48)(module)))
 
 /***/ },
 /* 20 */
@@ -1680,7 +1715,7 @@ var CoreModule = (function (_super) {
             imports: [common_1.CommonModule],
             declarations: [],
             exports: [common_1.CommonModule],
-            providers: [decision_service_1.DecisionService, goal_service_1.GoalService, option_service_1.OptionService] // these should be singleton
+            providers: [decision_service_1.DecisionApiService, goal_service_1.GoalApiService, option_service_1.OptionApiService] // these should be singleton
         }),
         __param(0, core_1.Optional()),
         __param(0, core_1.SkipSelf()), 
@@ -2376,7 +2411,7 @@ module.exports = "<nav class=\"navbar navbar-inverse navbar-static-top\">\r\n   
 /* 36 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Consider your Options</h1>\r\n\r\n<div *ngIf=\"options.length\">\r\n\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionName\">option Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <br />\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Positive Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Negative Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Notes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <br/>\r\n        <br/>\r\n        <br />\r\n    </div>\r\n\r\n    <button type='button'>Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options API!</div>";
+module.exports = "<h1>Consider your Options</h1>\r\n\r\n<div *ngIf=\"options.length\">\r\n\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionName\">option Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <br />\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Positive Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Negative Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Notes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <br/>\r\n        <br/>\r\n        <br />\r\n    </div>\r\n\r\n    <button type='button' class=\"btn btn-success btn-lg\">Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options API!</div>";
 
 /***/ },
 /* 37 */
@@ -2388,7 +2423,7 @@ module.exports = "<div class=\"container\">\r\n    <header>\r\n        \r\n    <
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Evaluate your Goals</h1>\r\n\r\n<div *ngIf=\"goals.length\">\r\n\r\n    <div *ngFor=\"let goal of goals\" class=\"input-group input-group-lg\">\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalName\">Goal Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalRank\">Rank:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        <br/>\r\n    </div>\r\n\r\n    <button type='button'>Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">Can't contact goals API!</div>";
+module.exports = "<h1>Evaluate your Goals</h1>\r\n\r\n<div *ngIf=\"goals.length\">\r\n    <h2>Your Goals</h2>\r\n\r\n    <div *ngFor=\"let goal of goals\" class=\"input-group input-group-lg\">\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalName\">Goal Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalRank\">Rank:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n        <br/>\r\n    </div>\r\n\r\n    <button type='button' class=\"btn btn-success btn-lg\">Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n\r\n<div *ngIf=\"existingGoals.length\">\r\n    <h2>Existing Goals</h2>\r\n\r\n    <div *ngFor=\"let goal of existingGoals\" class=\"input-group input-group-lg\">\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalName\">Goal Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalRank\">Rank:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        <br />\r\n    </div>\r\n\r\n    <button type='button' class=\"btn btn-success btn-lg\">Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!existingGoals.length\">Can't contact goals API!</div>";
 
 /***/ },
 /* 39 */
@@ -2860,6 +2895,70 @@ module.exports = (__webpack_require__(1))(728);
 
 __webpack_require__(19);
 module.exports = __webpack_require__(18);
+
+
+/***/ },
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var Subject_1 = __webpack_require__(60);
+var DecidingService = (function () {
+    function DecidingService() {
+        // Observable sources
+        this.goalSource = new Subject_1.Subject();
+        this.optionSource = new Subject_1.Subject();
+        this.decisionSource = new Subject_1.Subject();
+        // Observable streams
+        this.goals$ = this.goalSource.asObservable();
+        this.options$ = this.optionSource.asObservable();
+    }
+    // Service Commands
+    DecidingService.prototype.updateGoals = function (goals) {
+        this.goalSource.next(goals);
+    };
+    DecidingService.prototype.updateOptions = function (options) {
+        this.optionSource.next(options);
+    };
+    DecidingService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], DecidingService);
+    return DecidingService;
+}());
+exports.DecidingService = DecidingService;
+
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(1))(17);
+
+/***/ },
+/* 61 */
+/***/ function(module, exports) {
+
+"use strict";
+"use strict";
 
 
 /***/ }

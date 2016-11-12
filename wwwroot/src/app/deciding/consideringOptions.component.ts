@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { IOption } from '../shared/interfaces';
-import { OptionService } from '../core/services/option.service';
+import { OptionApiService } from '../core/services/option.service';
 
 @Component({
     templateUrl: 'consideringOptions.component.html'
@@ -8,9 +8,9 @@ import { OptionService } from '../core/services/option.service';
 export class ConsideringOptionsComponent implements OnInit {
     options: IOption[] = [];
 
-    constructor(private _optionService: OptionService) { }
+    constructor(private _optionApi: OptionApiService) { }
 
     ngOnInit() {
-        this._optionService.getOptions().subscribe(o => this.options = o);
+        this._optionApi.getOptions().subscribe(o => this.options = o);
     }
 }

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { IDecision } from '../shared/interfaces';
-import { DecisionService } from '../core/services/decision.service';
+import { DecisionApiService } from '../core/services/decision.service';
+import { DecidingService } from './shared/deciding.service';
 
 @Component({
     templateUrl: 'resolution.component.html'
@@ -8,9 +9,9 @@ import { DecisionService } from '../core/services/decision.service';
 export class ResolutionComponent implements OnInit {
     decision: IDecision;
 
-    constructor(private _decisionService: DecisionService) { }
+    constructor(private _decisionApi: DecisionApiService, private _DecidingService: DecidingService) { }
 
     ngOnInit() {
-        this._decisionService.getDecision().subscribe(d => this.decision = d);
+        this._decisionApi.getDecision().subscribe(d => this.decision = d);
     }
 }

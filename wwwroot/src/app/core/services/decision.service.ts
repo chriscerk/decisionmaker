@@ -4,7 +4,7 @@ import { IDecision } from '../../shared/interfaces.ts';
 import 'rxjs/Rx';
 
 @Injectable()
-export class DecisionService {
+export class DecisionApiService {
 
     decision: IDecision;
 
