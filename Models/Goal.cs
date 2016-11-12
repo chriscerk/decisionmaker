@@ -7,7 +7,7 @@ namespace decisionmaker.Models
 {
     public class Goal
     {
-        public string Id { get; set; }
+        public Guid Id = Guid.NewGuid();
         public string Name { get; set; }
         public string Description { get; set; }
         public string Rank { get; set; }

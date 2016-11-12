@@ -6,11 +6,11 @@ import 'rxjs/Rx';
 @Injectable()
 export class GoalService {
 
-    constructor(private http: Http) { }
+    constructor(private _http: Http) { }
 
     getGoals() {
         // return an observable
-        return this.http.get('/api/goal')
+        return this._http.get('/api/goal')
             .map((response) => {
                 return <IGoal[]>response.json();
             });

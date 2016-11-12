@@ -2,25 +2,27 @@ import { NgModule } from '@angular/core';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 
-import { AppRoutingModule } from './app-routing.module';
+import { app_routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
-import { EvaluationComponent } from './evaluation';
+import { DecidingModule } from './deciding';
 import { CoreModule }   from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 import '../styles.scss';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
-        EvaluationComponent
+        HomeComponent
     ],
     imports: [
         UniversalModule,
         Ng2BootstrapModule,
-        AppRoutingModule,
-        CoreModule
+        app_routing,
+        CoreModule,
+        DecidingModule,
+        SharedModule
     ],
     bootstrap: [AppComponent]
 })

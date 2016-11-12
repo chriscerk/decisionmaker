@@ -11,23 +11,67 @@ namespace decisionmaker.Controllers
     {
 
         [HttpGet]
-        [Produces(typeof(Goal[]))]
+        [Produces(typeof(Option[]))]
         public async Task<ActionResult> Get()
         {
             return Ok(new[] {
-                new Goal() {Description = "Hello World!", Id = "1", Name = "Goal 1", Rank = "High"},
-                new Goal() {Description = "Hello World!", Id = "2", Name = "Goal 2", Rank = "Low"}
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 1",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                },
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 2",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                }
             });
         }
 
         [Route("all/")]
         [HttpGet]
-        [Produces(typeof(Goal[]))]
+        [Produces(typeof(Option[]))]
         public async Task<ActionResult> All()
         {
             return Ok(new[] {
-                new Goal() {Description = "Hello World!", Id = "1", Name = "Goal 1", Rank = "High"},
-                new Goal() {Description = "Hello World!", Id = "2", Name = "Goal 2", Rank = "Low"}
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 1",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                },
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 2",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                },
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 3",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                },
+                new Option()
+                {
+                    Description = "Hello World!",
+                    Name = "Option 4",
+                    PositiveAttributes = "The good",
+                    NegativeAttributes = "The bad",
+                    Notes = "The ugly"
+                },
             });
         }
     }

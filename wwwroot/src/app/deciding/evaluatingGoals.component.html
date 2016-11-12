@@ -1,0 +1,21 @@
+﻿<h1>Evaluate your Goals</h1>
+
+<div *ngIf="goals.length">
+
+    <div *ngFor="let goal of goals">
+        <label for="goalName">Goal Name:</label>
+        <input type="text" [(ngModel)]="goal.name" id="goalName" />&nbsp;
+
+        <label for="goalRank">Rank:</label>
+        <input type="text" [(ngModel)]="goal.rank" id="goalRank" />&nbsp;
+
+        <label for="goalDescription">Description:</label>
+        <input type="text" [(ngModel)]="goal.description" id="goalDescription" />&nbsp;
+        <br />
+    </div>
+
+    <button type='button'>Next</button>
+
+</div>
+
+<div *ngIf="!goals.length">Can't contact goals API!</div>

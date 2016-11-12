@@ -1,20 +1,20 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { IDecision } from '../../shared/interfaces.ts';
+import { IOption } from '../../shared/interfaces.ts';
 import 'rxjs/Rx';
 
 @Injectable()
-export class DecisionService {
+export class OptionService {
 
-    decision: IDecision;
+    option: IOption;
 
     constructor(private _http: Http) { }
 
-    getDecision() {
+    getOptions() {
         // return an observable
-        return this._http.get('/api/decision')
+        return this._http.get('/api/option')
             .map((response) => {
-                return <IDecision>response.json();
+                return <IOption[]>response.json();
             });
     }
 }

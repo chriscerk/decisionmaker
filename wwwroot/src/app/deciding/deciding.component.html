@@ -1,0 +1,31 @@
+<div class="container">
+    <header>
+        <h3>Deciding</h3>
+    </header>
+    <br />
+    <div class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="toolbar-item">
+                <a routerLink="evaluating-goals" routerLinkActive="active">
+                    Evaluating Goals
+                </a>
+            </li>
+            <li class="toolbar-item">
+                <a routerLink="considering-options" routerLinkActive="active">
+                    Considering Options
+                </a>
+            </li>
+            <li class="toolbar-item">
+                <a routerLink="resolution" routerLinkActive="active">
+                    Resolution
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <router-outlet></router-outlet>
+        <br />
+        <br />
+        <a routerLink="/">Home</a>
+    </div>
+</div>

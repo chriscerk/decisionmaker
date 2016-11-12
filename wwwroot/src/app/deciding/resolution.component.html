@@ -1,0 +1,10 @@
+﻿<h1>Evaluate your Goals</h1>
+
+<div *ngIf="decision">
+
+    <label for="goalName">Results:</label>
+    <input type="text" [(ngModel)]="decision.results" id="decisionResults" />&nbsp;
+
+</div>
+
+<div *ngIf="!decision">Can't contact goals API!</div>

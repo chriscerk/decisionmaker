@@ -1,4 +1,6 @@
-﻿export interface IGoal {
+﻿import { ModuleWithProviders } from '@angular/core';
+
+export interface IGoal {
     id: string;
     name: string;
     description: string;
@@ -21,4 +23,9 @@ export interface IDecision {
     goals: IGoal[];
     options: IOption[];
     results: string;
+}
+
+export interface IRouting {
+    routes: ModuleWithProviders,
+    components: any[]
 }
