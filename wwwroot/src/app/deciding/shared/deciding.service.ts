@@ -22,5 +22,4 @@ export class DecidingService {
     updateDecision(d: IDecision) {
         this.decisionSource.next(d);
     }
-
 }

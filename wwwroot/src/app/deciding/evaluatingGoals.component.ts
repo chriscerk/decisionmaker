@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, Input, OnDestroy  } from '@angular/core';
 import { Subscription }   from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 import { IGoal, IDecision, Decision } from '../shared/interfaces';
 import { GoalApiService } from '../core/services/goal.service';
@@ -20,7 +21,8 @@ export class EvaluatingGoalsComponent implements OnInit, OnDestroy {
 
     constructor(private _goalApi: GoalApiService,
         private _decidingService: DecidingService,
-        private _decisionApi: DecisionApiService
+        private _decisionApi: DecisionApiService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -34,13 +36,19 @@ export class EvaluatingGoalsComponent implements OnInit, OnDestroy {
                 this.decision = d;
             });
 
+        this._goalApi.getNewGoals().subscribe(g => this.goals = g);
         this._goalApi.getGoals().subscribe(g => this.existingGoals = g);
+    }
+
+    setGoals() {
+        this._decidingService.updateDecision(this.decision);
     }
 
     confirm() {
         this.confirmed = true;
         this.message = "Goals Created";
         this._decidingService.updateMessage(this.message);
+        this.router.navigate(['./deciding', 'considering-options']);
     }
 
     autoFill() {

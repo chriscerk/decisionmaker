@@ -1,14 +1,26 @@
-﻿<h1>Start Deciding</h1>
-
-<div *ngIf="!message">
+﻿<div *ngIf="!message">
     No Message Found!
 </div>
 
-<div *ngIf="decision">
-
-    <label for="decisionName">What are trying to decide?</label>
-    <input type="text" [(ngModel)]="decision.name" id="decisionName" />&nbsp;
-    <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Confirm</button>
+<div *ngIf="decision" class="center-block text-center">
+    <div class="help-text">
+        <p>What are deciding?</p>
+    </div>
+    <br/>
+    <div class="input-group input-group-lg center-block text-center col-lg-4">
+        <input type="text"
+               [(ngModel)]="decision.name"
+               (keyup)="setName()"
+               (keyup.enter)="confirm()"
+               placeholder="Ex. Buying a House"
+               class="form-control"/>&nbsp;
+        <br/>
+        <button type='button'
+                (click)="confirm()"
+                class="btn btn-success btn-lg">
+            Name Decision
+        </button>
+    </div>
 </div>
 
-<div *ngIf="!decision">Can't contact either decision API or service properly!</div>
+<div *ngIf="!decision" class="alert-danger">Can't contact either decision API or service properly!</div>

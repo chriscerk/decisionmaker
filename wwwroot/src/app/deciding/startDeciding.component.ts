@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IDecision, Decision } from '../shared/interfaces';
@@ -15,7 +16,9 @@ export class StartDecidingComponent implements OnInit {
     confirmed = false;
     @Input() message: string = "Message: Hello World!";
 
-    constructor(private _decidingService: DecidingService, private _decisionApi: DecisionApiService) {}
+    constructor(private _decidingService: DecidingService,
+        private _decisionApi: DecisionApiService,
+        private router: Router) { }
 
     ngOnInit() {
         this.decision = new Decision();
@@ -30,7 +33,10 @@ export class StartDecidingComponent implements OnInit {
             d => {
                 this.decision = d;
             });
-        console.log(this.decision);
+        this._decidingService.updateDecision(this.decision);
+    }
+
+    setName() {
         this._decidingService.updateDecision(this.decision);
     }
 
@@ -38,8 +44,9 @@ export class StartDecidingComponent implements OnInit {
         this.confirmed = true;
         this.message = "Decision " + this.decision.name + " Created";
         this._decidingService.updateMessage(this.message);
-        this._decidingService.updateDecision(this.decision);
+        this.router.navigate(['./deciding', 'evaluating-goals']);
     }
+
     ngOnDestroy() {
         // prevent memory leak when component destroyed
         this.messageSub.unsubscribe();

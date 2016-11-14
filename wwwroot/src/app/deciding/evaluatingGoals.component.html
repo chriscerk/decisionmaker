@@ -1,29 +1,30 @@
-﻿<h1>Evaluate your Goals</h1>
-
-<div *ngIf="goals.length">
-    <h2>Your Goals</h2>
-
-    <div *ngFor="let goal of goals" class="input-group input-group-lg">
-
-        <div class="col-lg-4">
-            <label for="goalName">Goal Name:</label>
-            <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control"/>&nbsp;
+﻿<div *ngIf="goals.length" class="center-block text-center">
+    <h2>Evaluate your Goals</h2>
+    <div class="input-group input-group-lg center-block text-center col-lg-4">
+        <div *ngFor="let goal of goals">
+            <div class="col-lg-6">
+                <label for="goalName">Goal</label>
+                <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control"/>&nbsp;
+            </div>
+            <div class="col-lg-6">
+                <label for="goalRank">Importance</label>
+                <select [(ngModel)]="goal.rank" id="goalRank" class="form-control">
+                    <option value="High">High</option>
+                    <option value="High">Medium</option>
+                    <option value="High">Low</option>
+                </select>
+            </div>
         </div>
-
-        <div class="col-lg-4">
-            <label for="goalRank">Rank:</label>
-            <input type="text" [(ngModel)]="goal.rank" id="goalRank" class="form-control"/>&nbsp;
-        </div>
-
-        <div class="col-lg-4">
-            <label for="goalDescription">Description:</label>
-            <input type="text" [(ngModel)]="goal.description" id="goalDescription" class="form-control"/>&nbsp;
-        </div>
-        <br/>
+        <br />
+        <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Set Goals</button> <br/>
+        <br />
     </div>
 
-    <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Next</button> <br />
+    <div class="help-text">
+        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>
+    </div>
+    
+    <button type='button' (click)="autoFill()" class="btn btn-default btn-lg">Autofill</button>
 </div>
 
 <div *ngIf="!goals.length">No goals found!</div>
-<button type='button' (click)="autoFill()" class="btn btn-default btn-lg">Autofill</button>

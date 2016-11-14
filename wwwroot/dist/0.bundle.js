@@ -15,7 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(5);
+var common_1 = __webpack_require__(6);
 var ng2_bootstrap_1 = __webpack_require__(13);
 var about_routing_module_1 = __webpack_require__(59);
 var about_component_1 = __webpack_require__(58);
@@ -89,7 +89,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(12);
+var router_1 = __webpack_require__(4);
 var about_component_1 = __webpack_require__(58);
 var routes = [
     { path: '', component: about_component_1.AboutComponent }

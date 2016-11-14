@@ -1,5 +1,14 @@
 body {
     h1 {
-        color: red;
+        color: #292929;
+    }
+
+    .edit-able {
+        border: 1px solid rgba(255, 255, 255, 0);
+    }
+
+    .edit-able-lg {
+        border: 1px solid rgba(255, 255, 255, 0);
+        font-size: 30px !important;
     }
 }

@@ -10,7 +10,6 @@ namespace decisionmaker.Controllers
     [Produces("application/json")]
     public class GoalController : Controller
     {
-
         [HttpGet]
         [Produces(typeof(Goal[]))]
         public async Task<ActionResult> Get()
@@ -20,6 +19,35 @@ namespace decisionmaker.Controllers
                 new Goal() {Description = "Hello World!", Name = "Goal 2", Rank = "Low"},
                 new Goal() {Description = "Hello World!", Name = "Goal 3", Rank = "Medium"}
             });
+        }
+
+        [Route("new/")]
+        [HttpGet]
+        [Produces(typeof(Goal[]))]
+        public async Task<ActionResult> NewGoals()
+        {
+            var goals = new []
+            {
+                new Goal()
+                    {
+                        Description = "",
+                        Name = "",
+                        Rank = ""
+                    },
+                new Goal()
+                    {
+                        Description = "",
+                        Name = "",
+                        Rank = ""
+                    },
+                new Goal()
+                    {
+                        Description = "",
+                        Name = "",
+                        Rank = ""
+                    },
+            };
+            return Ok(goals);
         }
 
         [Route("all/")]

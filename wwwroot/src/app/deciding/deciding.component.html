@@ -1,11 +1,15 @@
 <div class="container">
     <header>
-        
+        <div *ngIf="decision">           
+            <div class="input-group input-group-lg col-lg-4">
+                <input type="text" [(ngModel)]="decision.name" class="form-control edit-able-lg" />
+            </div>
+        </div>
     </header>
     <div class="navbar">
         <ul class="nav navbar-nav">
             <li class="toolbar-item">
-                <a routerLink="startDeciding" routerLinkActive="active">
+                <a routerLink="start-deciding" routerLinkActive="active">
                     Start
                 </a>
             </li>
@@ -32,13 +36,6 @@
         <br />
     </div>
     
-    <div *ngIf="decision">
-        <p><strong>Decision</strong></p>
-        <p>{{decision.name}}</p><br/>
-    </div>
-    <div *ngIf="!decision">
-        <p>No Decision Yet</p><br />
-    </div>
     <br />
     <p><strong>Event Messages</strong></p>
     <div *ngFor="let message of history">

@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9298b11a349a5eabd0f1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3169804a6e69c241ce74"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -839,8 +839,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(4);
-__webpack_require__(11);
+var http_1 = __webpack_require__(5);
+__webpack_require__(12);
 var DecisionApiService = (function () {
     function DecisionApiService(_http) {
         this._http = _http;
@@ -877,16 +877,22 @@ exports.DecisionApiService = DecisionApiService;
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))(487);
+module.exports = (__webpack_require__(1))(720);
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))(20);
+module.exports = (__webpack_require__(1))(487);
 
 /***/ },
 /* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(1))(20);
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -901,7 +907,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var interfaces_1 = __webpack_require__(10);
+var interfaces_1 = __webpack_require__(11);
 var option_service_1 = __webpack_require__(15);
 var deciding_service_1 = __webpack_require__(2);
 var ConsideringOptionsComponent = (function () {
@@ -954,7 +960,7 @@ exports.ConsideringOptionsComponent = ConsideringOptionsComponent;
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1005,7 +1011,7 @@ exports.DecidingComponent = DecidingComponent;
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1020,15 +1026,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var interfaces_1 = __webpack_require__(10);
+var router_1 = __webpack_require__(4);
+var interfaces_1 = __webpack_require__(11);
 var goal_service_1 = __webpack_require__(14);
 var decision_service_1 = __webpack_require__(3);
 var deciding_service_1 = __webpack_require__(2);
 var EvaluatingGoalsComponent = (function () {
-    function EvaluatingGoalsComponent(_goalApi, _decidingService, _decisionApi) {
+    function EvaluatingGoalsComponent(_goalApi, _decidingService, _decisionApi, router) {
         this._goalApi = _goalApi;
         this._decidingService = _decidingService;
         this._decisionApi = _decisionApi;
+        this.router = router;
         this.goals = [];
         this.existingGoals = [];
         this.confirmed = false;
@@ -1042,12 +1050,17 @@ var EvaluatingGoalsComponent = (function () {
         this.decisionSub = this._decidingService.decision$.subscribe(function (d) {
             _this.decision = d;
         });
+        this._goalApi.getNewGoals().subscribe(function (g) { return _this.goals = g; });
         this._goalApi.getGoals().subscribe(function (g) { return _this.existingGoals = g; });
+    };
+    EvaluatingGoalsComponent.prototype.setGoals = function () {
+        this._decidingService.updateDecision(this.decision);
     };
     EvaluatingGoalsComponent.prototype.confirm = function () {
         this.confirmed = true;
         this.message = "Goals Created";
         this._decidingService.updateMessage(this.message);
+        this.router.navigate(['./deciding', 'considering-options']);
     };
     EvaluatingGoalsComponent.prototype.autoFill = function () {
         this.goals = this.existingGoals;
@@ -1069,16 +1082,16 @@ var EvaluatingGoalsComponent = (function () {
         core_1.Component({
             template: __webpack_require__(41)
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof goal_service_1.GoalApiService !== 'undefined' && goal_service_1.GoalApiService) === 'function' && _b) || Object, (typeof (_c = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _c) || Object, (typeof (_d = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _d) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof goal_service_1.GoalApiService !== 'undefined' && goal_service_1.GoalApiService) === 'function' && _b) || Object, (typeof (_c = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _c) || Object, (typeof (_d = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _d) || Object, (typeof (_e = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _e) || Object])
     ], EvaluatingGoalsComponent);
     return EvaluatingGoalsComponent;
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
 }());
 exports.EvaluatingGoalsComponent = EvaluatingGoalsComponent;
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1117,7 +1130,7 @@ exports.ResolutionComponent = ResolutionComponent;
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 "use strict";
@@ -1137,16 +1150,10 @@ var SignalRConnectionStatus = exports.SignalRConnectionStatus;
 
 
 /***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = (__webpack_require__(1))(943);
-
-/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(1))(720);
+module.exports = (__webpack_require__(1))(943);
 
 /***/ },
 /* 13 */
@@ -1170,12 +1177,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(4);
-__webpack_require__(11);
+var http_1 = __webpack_require__(5);
+__webpack_require__(12);
 var GoalApiService = (function () {
     function GoalApiService(_http) {
         this._http = _http;
     }
+    GoalApiService.prototype.getNewGoals = function () {
+        // return an observable
+        return this._http.get('/api/goal/new')
+            .map(function (response) {
+            return response.json();
+        });
+    };
     GoalApiService.prototype.getGoals = function () {
         // return an observable
         return this._http.get('/api/goal')
@@ -1209,8 +1223,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(4);
-__webpack_require__(11);
+var http_1 = __webpack_require__(5);
+__webpack_require__(12);
 var OptionApiService = (function () {
     function OptionApiService(_http) {
         this._http = _http;
@@ -1248,14 +1262,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(5);
+var common_1 = __webpack_require__(6);
 var ng2_bootstrap_1 = __webpack_require__(13);
 var deciding_routing_module_1 = __webpack_require__(27);
-var deciding_component_1 = __webpack_require__(7);
+var deciding_component_1 = __webpack_require__(8);
 var startDeciding_component_1 = __webpack_require__(17);
-var evaluatingGoals_component_1 = __webpack_require__(8);
-var consideringOptions_component_1 = __webpack_require__(6);
-var resolution_component_1 = __webpack_require__(9);
+var evaluatingGoals_component_1 = __webpack_require__(9);
+var consideringOptions_component_1 = __webpack_require__(7);
+var resolution_component_1 = __webpack_require__(10);
 var DecidingModule = (function () {
     function DecidingModule() {
     }
@@ -1298,13 +1312,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var interfaces_1 = __webpack_require__(10);
+var router_1 = __webpack_require__(4);
+var interfaces_1 = __webpack_require__(11);
 var decision_service_1 = __webpack_require__(3);
 var deciding_service_1 = __webpack_require__(2);
 var StartDecidingComponent = (function () {
-    function StartDecidingComponent(_decidingService, _decisionApi) {
+    function StartDecidingComponent(_decidingService, _decisionApi, router) {
         this._decidingService = _decidingService;
         this._decisionApi = _decisionApi;
+        this.router = router;
         this.confirmed = false;
         this.message = "Message: Hello World!";
     }
@@ -1319,14 +1335,16 @@ var StartDecidingComponent = (function () {
         this.decisionSub = this._decidingService.decision$.subscribe(function (d) {
             _this.decision = d;
         });
-        console.log(this.decision);
+        this._decidingService.updateDecision(this.decision);
+    };
+    StartDecidingComponent.prototype.setName = function () {
         this._decidingService.updateDecision(this.decision);
     };
     StartDecidingComponent.prototype.confirm = function () {
         this.confirmed = true;
         this.message = "Decision " + this.decision.name + " Created";
         this._decidingService.updateMessage(this.message);
-        this._decidingService.updateDecision(this.decision);
+        this.router.navigate(['./deciding', 'evaluating-goals']);
     };
     StartDecidingComponent.prototype.ngOnDestroy = function () {
         // prevent memory leak when component destroyed
@@ -1345,10 +1363,10 @@ var StartDecidingComponent = (function () {
         core_1.Component({
             template: __webpack_require__(43)
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _b) || Object, (typeof (_c = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _b) || Object, (typeof (_c = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object])
     ], StartDecidingComponent);
     return StartDecidingComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 exports.StartDecidingComponent = StartDecidingComponent;
 
@@ -1771,7 +1789,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A52947%2F__webpack_hmr", __webpack_require__(52)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A59396%2F__webpack_hmr", __webpack_require__(52)(module)))
 
 /***/ },
 /* 23 */
@@ -1861,7 +1879,7 @@ exports.AppModule = AppModule;
 
 "use strict";
 "use strict";
-var router_1 = __webpack_require__(12);
+var router_1 = __webpack_require__(4);
 var home_1 = __webpack_require__(18);
 var app_routes = [
     { path: 'home', component: home_1.HomeComponent },
@@ -1896,7 +1914,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(5);
+var common_1 = __webpack_require__(6);
 var decision_service_1 = __webpack_require__(3);
 var goal_service_1 = __webpack_require__(14);
 var option_service_1 = __webpack_require__(15);
@@ -1939,13 +1957,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var router_1 = __webpack_require__(12);
+var router_1 = __webpack_require__(4);
 var core_1 = __webpack_require__(0);
-var deciding_component_1 = __webpack_require__(7);
+var deciding_component_1 = __webpack_require__(8);
 var startDeciding_component_1 = __webpack_require__(17);
-var evaluatingGoals_component_1 = __webpack_require__(8);
-var consideringOptions_component_1 = __webpack_require__(6);
-var resolution_component_1 = __webpack_require__(9);
+var evaluatingGoals_component_1 = __webpack_require__(9);
+var consideringOptions_component_1 = __webpack_require__(7);
+var resolution_component_1 = __webpack_require__(10);
 var routes = [
     {
         path: '',
@@ -1984,11 +2002,11 @@ exports.DecidingRoutingModule = DecidingRoutingModule;
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-__export(__webpack_require__(7));
-__export(__webpack_require__(16));
-__export(__webpack_require__(6));
 __export(__webpack_require__(8));
+__export(__webpack_require__(16));
+__export(__webpack_require__(7));
 __export(__webpack_require__(9));
+__export(__webpack_require__(10));
 
 
 /***/ },
@@ -2056,9 +2074,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(5);
+var common_1 = __webpack_require__(6);
 var forms_1 = __webpack_require__(54);
-var http_1 = __webpack_require__(4);
+var http_1 = __webpack_require__(5);
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -2605,7 +2623,7 @@ module.exports = XmlEntities;
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" (click)=\"toggle = !toggle\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand\" [routerLink]=\"['']\">\r\n                decisionmaker\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"navbar-collapse collapse\" [collapse]=\"!toggle\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['home']\">Home<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['deciding/start-deciding']\">Deciding<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['about']\">About<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n<div class='container'>\r\n    <router-outlet></router-outlet>\r\n</div>\r\n";
+module.exports = "<nav class=\"navbar navbar-inverse navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" (click)=\"toggle = !toggle\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand\" [routerLink]=\"['']\">\r\n                decisionmaker\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"navbar-collapse collapse\" [collapse]=\"!toggle\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['home']\">Home<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['deciding/start-deciding']\">Make a Decision<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n                <li [routerLinkActive]=\"['active']\">\r\n                    <a [routerLink]=\"['about']\">About<span class=\"sr-only\">(current)</span></a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n<div class='container'>\r\n    <router-outlet></router-outlet>\r\n</div>\r\n";
 
 /***/ },
 /* 39 */
@@ -2617,13 +2635,13 @@ module.exports = "<h1>Consider your Options</h1>\r\n\r\n<div *ngIf=\"message\">\
 /* 40 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <header>\r\n        \r\n    </header>\r\n    <div class=\"navbar\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"startDeciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n    \r\n    <div *ngIf=\"decision\">\r\n        <p><strong>Decision</strong></p>\r\n        <p>{{decision.name}}</p><br/>\r\n    </div>\r\n    <div *ngIf=\"!decision\">\r\n        <p>No Decision Yet</p><br />\r\n    </div>\r\n    <br />\r\n    <p><strong>Event Messages</strong></p>\r\n    <div *ngFor=\"let message of history\">\r\n        <p>{{message}}</p><br />\r\n    </div>\r\n    \r\n    <a routerLink=\"/\">Home</a>\r\n</div>\r\n";
+module.exports = "<div class=\"container\">\r\n    <header>\r\n        <div *ngIf=\"decision\">           \r\n            <div class=\"input-group input-group-lg col-lg-4\">\r\n                <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <div class=\"navbar\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n    \r\n    <br />\r\n    <p><strong>Event Messages</strong></p>\r\n    <div *ngFor=\"let message of history\">\r\n        <p>{{message}}</p><br />\r\n    </div>\r\n    \r\n    <a routerLink=\"/\">Home</a>\r\n</div>\r\n";
 
 /***/ },
 /* 41 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Evaluate your Goals</h1>\r\n\r\n<div *ngIf=\"goals.length\">\r\n    <h2>Your Goals</h2>\r\n\r\n    <div *ngFor=\"let goal of goals\" class=\"input-group input-group-lg\">\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalName\">Goal Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalRank\">Rank:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"goalDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n        </div>\r\n        <br/>\r\n    </div>\r\n\r\n    <button type='button' (click)=\"confirm()\" class=\"btn btn-success btn-lg\">Next</button> <br />\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n<button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>";
+module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\">\r\n    <h2>Evaluate your Goals</h2>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <div *ngFor=\"let goal of goals\">\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalName\">Goal</label>\r\n                <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalRank\">Importance</label>\r\n                <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                    <option value=\"High\">High</option>\r\n                    <option value=\"High\">Medium</option>\r\n                    <option value=\"High\">Low</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <button type='button' (click)=\"confirm()\" class=\"btn btn-success btn-lg\">Set Goals</button> <br/>\r\n        <br />\r\n    </div>\r\n\r\n    <div class=\"help-text\">\r\n        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>\r\n    </div>\r\n    \r\n    <button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n";
 
 /***/ },
 /* 42 */
@@ -2635,7 +2653,7 @@ module.exports = "<h1>Evaluate your Goals</h1>\r\n\r\n<div *ngIf=\"decision\">\r
 /* 43 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Start Deciding</h1>\r\n\r\n<div *ngIf=\"!message\">\r\n    No Message Found!\r\n</div>\r\n\r\n<div *ngIf=\"decision\">\r\n\r\n    <label for=\"decisionName\">What are trying to decide?</label>\r\n    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" />&nbsp;\r\n    <button type='button' (click)=\"confirm()\" class=\"btn btn-success btn-lg\">Confirm</button>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\">Can't contact either decision API or service properly!</div>";
+module.exports = "<div *ngIf=\"!message\">\r\n    No Message Found!\r\n</div>\r\n\r\n<div *ngIf=\"decision\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <p>What are deciding?</p>\r\n    </div>\r\n    <br/>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <input type=\"text\"\r\n               [(ngModel)]=\"decision.name\"\r\n               (keyup)=\"setName()\"\r\n               (keyup.enter)=\"confirm()\"\r\n               placeholder=\"Ex. Buying a House\"\r\n               class=\"form-control\"/>&nbsp;\r\n        <br/>\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Name Decision\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\" class=\"alert-danger\">Can't contact either decision API or service properly!</div>";
 
 /***/ },
 /* 44 */

@@ -28,7 +28,7 @@ namespace decisionmaker.Controllers.Api
         {
             var d = new Decision()
             {
-                Name = "NEW Decision",
+                Name = "",
                 Description = "",
                 Results = "",
                 Goals = new[]
