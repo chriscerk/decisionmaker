@@ -9,23 +9,30 @@ namespace decisionmaker.Controllers.Api.Models
 {
     public class DecisionRepository : IDecisionRepository
     {
+        public DecisionRepository()
+        {
+            
+        }
+
         private static ConcurrentDictionary<string, Decision> _decisions =
               new ConcurrentDictionary<string, Decision>();
 
 
         public void Add(Decision decision)
         {
-            throw new NotImplementedException();
+            _decisions.TryAdd(decision.Id.ToString(), decision);
         }
 
         public IEnumerable<Decision> GetAll()
         {
-            throw new NotImplementedException();
+            return _decisions.Values;
         }
 
         public Decision Find(string key)
         {
-            throw new NotImplementedException();
+            Decision d;
+            _decisions.TryGetValue(key, out d);
+            return d;
         }
 
         public Decision Remove(string key)
@@ -35,7 +42,7 @@ namespace decisionmaker.Controllers.Api.Models
 
         public void Update(Decision item)
         {
-            throw new NotImplementedException();
+            _decisions.TryUpdate(item.Id.ToString(), item, item);
         }
     }
 }

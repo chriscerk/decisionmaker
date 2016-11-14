@@ -1,10 +1,12 @@
 using decisionmaker.Controllers.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace decisionmaker
@@ -29,7 +31,7 @@ namespace decisionmaker
             // Add framework services.
             services.AddMvc();
             services.AddSignalR(options => options.Hubs.EnableDetailedErrors = true);
-            services.AddSingleton<IDecisionRepository, DecisionRepository>();
+            services.TryAddSingleton<IDecisionRepository, DecisionRepository>();
             services.AddSwaggerGen();
         }
 

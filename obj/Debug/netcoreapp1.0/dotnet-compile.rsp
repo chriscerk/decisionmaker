@@ -221,10 +221,10 @@
 C:\Code\decisionmaker\src\decisionmaker\Program.cs
 C:\Code\decisionmaker\src\decisionmaker\Startup.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\HomeController.cs
+C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\ApiHubController.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\DecisionController.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\DecisionDataController.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\GoalController.cs
-C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\HubController.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\OptionController.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\Models\DecisionRepository.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\Api\Models\IDecisionRepository.cs

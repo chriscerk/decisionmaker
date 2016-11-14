@@ -11,8 +11,21 @@ export class DecisionApiService {
     constructor(private _http: Http) { }
 
     getDecision() {
-        // return an observable
         return this._http.get('/api/decision')
+            .map((response) => {
+                return <IDecision>response.json();
+            });
+    }
+
+    getNewDecision() {
+        return this._http.get('/api/decision/new')
+            .map((response) => {
+                return <IDecision>response.json();
+            });
+    }
+
+    getDecisionById(id: string) {
+        return this._http.get('/api/decision/'+ id)
             .map((response) => {
                 return <IDecision>response.json();
             });

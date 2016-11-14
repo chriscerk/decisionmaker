@@ -1,4 +1,5 @@
-﻿using decisionmaker.Hubs;
+﻿using decisionmaker.Controllers.Api;
+using decisionmaker.Hubs;
 using decisionmaker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Infrastructure;

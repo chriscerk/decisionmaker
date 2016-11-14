@@ -1,24 +1,26 @@
 ﻿import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
 
+import { DecisionApiService } from '../../core/services/decision.service';
 import { IOption, IGoal, IDecision } from '../../shared/interfaces';
 
 @Injectable()
 export class DecidingService {
+
     // Observable sources
-    private goalSource = new Subject<IGoal[]>();
-    private optionSource = new Subject<IOption[]>();
+    private messageSource = new Subject<string>();
     private decisionSource = new Subject<IDecision>();
 
     // Observable streams
-    goals$ = this.goalSource.asObservable();
-    options$ = this.optionSource.asObservable();
+    message$ = this.messageSource.asObservable();
+    decision$ = this.decisionSource.asObservable();
 
     // Service Commands
-    updateGoals(goals: IGoal[]) {
-        this.goalSource.next(goals);
+    updateMessage(m:string) {
+        this.messageSource.next(m);
     }
-    updateOptions(options: IOption[]) {
-        this.optionSource.next(options);
+    updateDecision(d: IDecision) {
+        this.decisionSource.next(d);
     }
+
 }

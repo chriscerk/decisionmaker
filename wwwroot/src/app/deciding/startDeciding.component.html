@@ -1,0 +1,14 @@
+﻿<h1>Start Deciding</h1>
+
+<div *ngIf="!message">
+    No Message Found!
+</div>
+
+<div *ngIf="decision">
+
+    <label for="decisionName">What are trying to decide?</label>
+    <input type="text" [(ngModel)]="decision.name" id="decisionName" />&nbsp;
+    <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Confirm</button>
+</div>
+
+<div *ngIf="!decision">Can't contact either decision API or service properly!</div>

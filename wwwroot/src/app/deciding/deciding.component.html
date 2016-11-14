@@ -5,11 +5,15 @@
     <div class="navbar">
         <ul class="nav navbar-nav">
             <li class="toolbar-item">
+                <a routerLink="startDeciding" routerLinkActive="active">
+                    Start
+                </a>
+            </li>
+            <li class="toolbar-item">
                 <a routerLink="evaluating-goals" routerLinkActive="active">
                     Evaluating Goals
                 </a>
             </li>
-
             <li class="toolbar-item">
                 <a routerLink="considering-options" routerLinkActive="active">
                     Considering Options
@@ -26,6 +30,20 @@
         <router-outlet></router-outlet>
         <br />
         <br />
-        <a routerLink="/">Home</a>
     </div>
+    
+    <div *ngIf="decision">
+        <p><strong>Decision</strong></p>
+        <p>{{decision.name}}</p><br/>
+    </div>
+    <div *ngIf="!decision">
+        <p>No Decision Yet</p><br />
+    </div>
+    <br />
+    <p><strong>Event Messages</strong></p>
+    <div *ngFor="let message of history">
+        <p>{{message}}</p><br />
+    </div>
+    
+    <a routerLink="/">Home</a>
 </div>

@@ -5,13 +5,15 @@ import { DecisionApiService } from './services/decision.service';
 import { GoalApiService } from './services/goal.service';
 import { OptionApiService } from './services/option.service';
 
+import { DecidingService } from '../deciding/shared/deciding.service';
+
 import { EnsureModuleLoadedOnceGuard } from '../shared/ensureModuleLoadedOnceGuard';
 
 @NgModule({
     imports: [CommonModule],
     declarations: [],
     exports: [CommonModule],
-    providers: [DecisionApiService, GoalApiService, OptionApiService] // these should be singleton
+    providers: [DecisionApiService, GoalApiService, OptionApiService, DecidingService] // these should be singleton
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {    // Ensure that CoreModule is only loaded into AppModule
 

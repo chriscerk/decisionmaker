@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DecisionApiService } from '../core/services/decision.service';
 import { DecidingService } from './shared/deciding.service';
 import { IDecision, IGoal, IOption } from '../shared/interfaces';
 
@@ -10,19 +11,26 @@ import { IDecision, IGoal, IOption } from '../shared/interfaces';
 
 export class DecidingComponent {
     decision: IDecision;
+    message: string;
     history: string[] = [];
 
-    constructor(private decidingService: DecidingService) {
-        decidingService.goals$.subscribe(
-            g => {
-                this.decision.goals = g;
-                this.history.push('Goals Updated');
+    constructor(private _decidingService: DecidingService, private _decisionApiService: DecisionApiService)
+    {
+        this._decisionApiService.getNewDecision().subscribe(d => this.decision = d);
+        console.log("Constructed");
+        console.log(this.decision);
+    }
+
+    ngOnInit() {
+        this._decidingService.message$.subscribe(
+            m => {
+                this.message = m;
+                this.history.push(this.message);
             });
 
-        decidingService.options$.subscribe(
-            o => {
-                this.decision.options = o;
-                this.history.push('Options Updated');
+        this._decidingService.decision$.subscribe(
+            d => {
+                this.decision = d;
             });
     }
 }

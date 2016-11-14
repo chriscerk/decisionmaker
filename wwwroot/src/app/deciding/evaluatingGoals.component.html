@@ -22,36 +22,8 @@
         <br/>
     </div>
 
-    <button type='button' class="btn btn-success btn-lg">Next</button>
-
+    <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Next</button> <br />
 </div>
 
 <div *ngIf="!goals.length">No goals found!</div>
-
-<div *ngIf="existingGoals.length">
-    <h2>Existing Goals</h2>
-
-    <div *ngFor="let goal of existingGoals" class="input-group input-group-lg">
-
-        <div class="col-lg-4">
-            <label for="goalName">Goal Name:</label>
-            <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control" />&nbsp;
-        </div>
-
-        <div class="col-lg-4">
-            <label for="goalRank">Rank:</label>
-            <input type="text" [(ngModel)]="goal.rank" id="goalRank" class="form-control" />&nbsp;
-        </div>
-
-        <div class="col-lg-4">
-            <label for="goalDescription">Description:</label>
-            <input type="text" [(ngModel)]="goal.description" id="goalDescription" class="form-control" />&nbsp;
-        </div>
-        <br />
-    </div>
-
-    <button type='button' class="btn btn-success btn-lg">Next</button>
-
-</div>
-
-<div *ngIf="!existingGoals.length">Can't contact goals API!</div>
+<button type='button' (click)="autoFill()" class="btn btn-default btn-lg">Autofill</button>

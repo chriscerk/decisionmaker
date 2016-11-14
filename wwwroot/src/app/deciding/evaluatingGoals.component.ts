@@ -1,37 +1,55 @@
 ﻿import { Component, OnInit, Input, OnDestroy  } from '@angular/core';
 import { Subscription }   from 'rxjs/Subscription';
 
-import { IGoal, IDecision } from '../shared/interfaces';
+import { IGoal, IDecision, Decision } from '../shared/interfaces';
 import { GoalApiService } from '../core/services/goal.service';
+import { DecisionApiService } from '../core/services/decision.service';
 import { DecidingService } from './shared/deciding.service'
 
 @Component({
     templateUrl: 'evaluatingGoals.component.html'
 })
-export class EvaluatingGoalsComponent implements OnInit {
-    goals: IGoal[] = new Array(3);
-    existingGoals: IGoal[] = [];
+export class EvaluatingGoalsComponent implements OnInit, OnDestroy {
     @Input() decision: IDecision;
-    subscription: Subscription;
+    goals: IGoal[] = [];
+    existingGoals: IGoal[] = [];
+    messageSub: Subscription;
+    decisionSub: Subscription;
     confirmed = false;
+    @Input() message: string = "Message: Hello Goals!";
 
-    constructor(private _goalApi: GoalApiService, private _decidingService: DecidingService) {
-        this.subscription = _decidingService.goals$.subscribe(
-            g => {
-                this.goals = g;
-            });
-    }
+    constructor(private _goalApi: GoalApiService,
+        private _decidingService: DecidingService,
+        private _decisionApi: DecisionApiService
+    ) {}
 
     ngOnInit() {
+        this.messageSub = this._decidingService.message$.subscribe(
+            m => {
+                this.message = m;
+            });
+
+        this.decisionSub = this._decidingService.decision$.subscribe(
+            d => {
+                this.decision = d;
+            });
+
         this._goalApi.getGoals().subscribe(g => this.existingGoals = g);
     }
 
     confirm() {
         this.confirmed = true;
-        this._decidingService.updateGoals(this.goals);
+        this.message = "Goals Created";
+        this._decidingService.updateMessage(this.message);
     }
+
+    autoFill() {
+        this.goals = this.existingGoals;
+    }
+
     ngOnDestroy() {
         // prevent memory leak when component destroyed
-        this.subscription.unsubscribe();
+        this.messageSub.unsubscribe();
+        this.decisionSub.unsubscribe();
     }
 }
