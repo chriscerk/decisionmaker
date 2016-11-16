@@ -4,19 +4,32 @@
         <div *ngFor="let goal of goals">
             <div class="col-lg-6">
                 <label for="goalName">Goal</label>
-                <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control"/>&nbsp;
+                <input type="text" 
+                       [(ngModel)]="goal.name"
+                       (keyup)="setGoals()" 
+                       id="goalName" 
+                       class="form-control"
+                       required/>&nbsp;
             </div>
             <div class="col-lg-6">
                 <label for="goalRank">Importance</label>
-                <select [(ngModel)]="goal.rank" id="goalRank" class="form-control">
+                <select [(ngModel)]="goal.rank"
+                        (click)="setGoals()"
+                        id="goalRank" 
+                        class="form-control"
+                        required>
                     <option value="High">High</option>
-                    <option value="High">Medium</option>
-                    <option value="High">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
                 </select>
             </div>
         </div>
         <br />
-        <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Set Goals</button> <br/>
+        <button type='button'
+                (click)="confirm()"
+                class="btn btn-success btn-lg">
+            Set Goals
+        </button>
         <br />
     </div>
 

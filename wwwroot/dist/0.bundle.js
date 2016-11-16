@@ -89,7 +89,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(4);
+var router_1 = __webpack_require__(3);
 var about_component_1 = __webpack_require__(58);
 var routes = [
     { path: '', component: about_component_1.AboutComponent }

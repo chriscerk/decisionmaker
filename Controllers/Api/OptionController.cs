@@ -74,5 +74,32 @@ namespace decisionmaker.Controllers
                 },
             });
         }
+
+        [Route("new/")]
+        [HttpGet]
+        [Produces(typeof(Option[]))]
+        public async Task<ActionResult> NewOptions()
+        {
+            var options = new[]
+            {
+                new Option()
+                {
+                    Description = "",
+                    Name = "",
+                    PositiveAttributes = "",
+                    NegativeAttributes = "",
+                    Notes = ""
+                },
+                new Option()
+                {
+                    Description = "",
+                    Name = "",
+                    PositiveAttributes = "",
+                    NegativeAttributes = "",
+                    Notes = ""
+                }
+            };
+            return Ok(options);
+        }
     }
 }

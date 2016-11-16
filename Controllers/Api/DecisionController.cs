@@ -56,7 +56,8 @@ namespace decisionmaker.Controllers.Api
             Decisions.Add(d);
             return Ok(d);
         }
-
+        
+        [Route("all/")]
         [HttpGet]
         [Produces(typeof(Decision[]))]
         public IEnumerable<Decision> GetAll()

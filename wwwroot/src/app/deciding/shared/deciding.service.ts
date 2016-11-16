@@ -10,10 +10,14 @@ export class DecidingService {
     // Observable sources
     private messageSource = new Subject<string>();
     private decisionSource = new Subject<IDecision>();
+    private goalSource = new Subject<IGoal[]>();
+    private optionSource = new Subject<IOption[]>();
 
     // Observable streams
     message$ = this.messageSource.asObservable();
     decision$ = this.decisionSource.asObservable();
+    goals$ = this.goalSource.asObservable();
+    options$ = this.optionSource.asObservable();
 
     // Service Commands
     updateMessage(m:string) {
@@ -21,5 +25,11 @@ export class DecidingService {
     }
     updateDecision(d: IDecision) {
         this.decisionSource.next(d);
+    }
+    updateGoals(goals: IGoal[]) {
+        this.goalSource.next(goals);
+    }
+    updateOptions(options: IOption[]) {
+        this.optionSource.next(options);
     }
 }

@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3169804a6e69c241ce74"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5d5dfe000b66e4746cea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -803,9 +803,13 @@ var DecidingService = (function () {
         // Observable sources
         this.messageSource = new Subject_1.Subject();
         this.decisionSource = new Subject_1.Subject();
+        this.goalSource = new Subject_1.Subject();
+        this.optionSource = new Subject_1.Subject();
         // Observable streams
         this.message$ = this.messageSource.asObservable();
         this.decision$ = this.decisionSource.asObservable();
+        this.goals$ = this.goalSource.asObservable();
+        this.options$ = this.optionSource.asObservable();
     }
     // Service Commands
     DecidingService.prototype.updateMessage = function (m) {
@@ -813,6 +817,12 @@ var DecidingService = (function () {
     };
     DecidingService.prototype.updateDecision = function (d) {
         this.decisionSource.next(d);
+    };
+    DecidingService.prototype.updateGoals = function (goals) {
+        this.goalSource.next(goals);
+    };
+    DecidingService.prototype.updateOptions = function (options) {
+        this.optionSource.next(options);
     };
     DecidingService = __decorate([
         core_1.Injectable(), 
@@ -825,6 +835,12 @@ exports.DecidingService = DecidingService;
 
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(1))(720);
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -874,12 +890,6 @@ exports.DecisionApiService = DecisionApiService;
 
 
 /***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = (__webpack_require__(1))(720);
-
-/***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -907,42 +917,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var interfaces_1 = __webpack_require__(11);
+var router_1 = __webpack_require__(3);
 var option_service_1 = __webpack_require__(15);
 var deciding_service_1 = __webpack_require__(2);
 var ConsideringOptionsComponent = (function () {
-    function ConsideringOptionsComponent(_optionApi, _decidingService) {
+    function ConsideringOptionsComponent(_optionApi, _decidingService, router) {
         this._optionApi = _optionApi;
         this._decidingService = _decidingService;
+        this.router = router;
         this.options = [];
+        this.goals = [];
         this.existingOptions = [];
         this.confirmed = false;
         this.message = "Message: Hello Options!";
     }
     ConsideringOptionsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this._optionApi.getNewOptions().subscribe(function (g) { return _this.options = g; });
         this._optionApi.getOptions().subscribe(function (g) { return _this.existingOptions = g; });
-        this.subscription = this._decidingService.message$.subscribe(function (m) {
-            _this.message = m;
-        });
-        this.options = this.decision.options;
-        console.log("Child evaluatingGoals");
-        console.log(this.message);
-        console.log(this.decision);
-        console.log(this.options);
+        this._decidingService.updateOptions(this.options);
+    };
+    ConsideringOptionsComponent.prototype.setOptions = function () {
+        this._decidingService.updateOptions(this.options);
     };
     ConsideringOptionsComponent.prototype.confirm = function () {
         this.confirmed = true;
+        this.message = "Options Created";
         this._decidingService.updateMessage(this.message);
+        //this.router.navigate(['./deciding', 'resolution']);
     };
-    ConsideringOptionsComponent.prototype.ngOnDestroy = function () {
-        // prevent memory leak when component destroyed
-        this.subscription.unsubscribe();
+    ConsideringOptionsComponent.prototype.autoFill = function () {
+        this.options = this.existingOptions;
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', (typeof (_a = typeof interfaces_1.IDecision !== 'undefined' && interfaces_1.IDecision) === 'function' && _a) || Object)
-    ], ConsideringOptionsComponent.prototype, "decision", void 0);
+        __metadata('design:type', Array)
+    ], ConsideringOptionsComponent.prototype, "goals", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -951,7 +961,7 @@ var ConsideringOptionsComponent = (function () {
         core_1.Component({
             template: __webpack_require__(39)
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof option_service_1.OptionApiService !== 'undefined' && option_service_1.OptionApiService) === 'function' && _b) || Object, (typeof (_c = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof option_service_1.OptionApiService !== 'undefined' && option_service_1.OptionApiService) === 'function' && _a) || Object, (typeof (_b = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
     ], ConsideringOptionsComponent);
     return ConsideringOptionsComponent;
     var _a, _b, _c;
@@ -975,17 +985,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var decision_service_1 = __webpack_require__(3);
+var decision_service_1 = __webpack_require__(4);
 var deciding_service_1 = __webpack_require__(2);
 var DecidingComponent = (function () {
     function DecidingComponent(_decidingService, _decisionApiService) {
-        var _this = this;
         this._decidingService = _decidingService;
         this._decisionApiService = _decisionApiService;
         this.history = [];
-        this._decisionApiService.getNewDecision().subscribe(function (d) { return _this.decision = d; });
-        console.log("Constructed");
-        console.log(this.decision);
+        this.userState = "creating";
+        this.isDevView = false;
     }
     DecidingComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -996,6 +1004,15 @@ var DecidingComponent = (function () {
         this._decidingService.decision$.subscribe(function (d) {
             _this.decision = d;
         });
+        this._decidingService.goals$.subscribe(function (g) {
+            _this.decision.goals = g;
+        });
+        this._decidingService.options$.subscribe(function (o) {
+            _this.decision.options = o;
+        });
+    };
+    DecidingComponent.prototype.devViewSwitch = function () {
+        this.isDevView = !this.isDevView;
     };
     DecidingComponent = __decorate([
         core_1.Component({
@@ -1026,16 +1043,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(4);
-var interfaces_1 = __webpack_require__(11);
+var router_1 = __webpack_require__(3);
 var goal_service_1 = __webpack_require__(14);
-var decision_service_1 = __webpack_require__(3);
 var deciding_service_1 = __webpack_require__(2);
 var EvaluatingGoalsComponent = (function () {
-    function EvaluatingGoalsComponent(_goalApi, _decidingService, _decisionApi, router) {
+    function EvaluatingGoalsComponent(_goalApi, _decidingService, router) {
         this._goalApi = _goalApi;
         this._decidingService = _decidingService;
-        this._decisionApi = _decisionApi;
         this.router = router;
         this.goals = [];
         this.existingGoals = [];
@@ -1044,17 +1058,12 @@ var EvaluatingGoalsComponent = (function () {
     }
     EvaluatingGoalsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.messageSub = this._decidingService.message$.subscribe(function (m) {
-            _this.message = m;
-        });
-        this.decisionSub = this._decidingService.decision$.subscribe(function (d) {
-            _this.decision = d;
-        });
         this._goalApi.getNewGoals().subscribe(function (g) { return _this.goals = g; });
         this._goalApi.getGoals().subscribe(function (g) { return _this.existingGoals = g; });
+        this._decidingService.updateGoals(this.goals);
     };
     EvaluatingGoalsComponent.prototype.setGoals = function () {
-        this._decidingService.updateDecision(this.decision);
+        this._decidingService.updateGoals(this.goals);
     };
     EvaluatingGoalsComponent.prototype.confirm = function () {
         this.confirmed = true;
@@ -1065,15 +1074,6 @@ var EvaluatingGoalsComponent = (function () {
     EvaluatingGoalsComponent.prototype.autoFill = function () {
         this.goals = this.existingGoals;
     };
-    EvaluatingGoalsComponent.prototype.ngOnDestroy = function () {
-        // prevent memory leak when component destroyed
-        this.messageSub.unsubscribe();
-        this.decisionSub.unsubscribe();
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', (typeof (_a = typeof interfaces_1.IDecision !== 'undefined' && interfaces_1.IDecision) === 'function' && _a) || Object)
-    ], EvaluatingGoalsComponent.prototype, "decision", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -1082,10 +1082,10 @@ var EvaluatingGoalsComponent = (function () {
         core_1.Component({
             template: __webpack_require__(41)
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof goal_service_1.GoalApiService !== 'undefined' && goal_service_1.GoalApiService) === 'function' && _b) || Object, (typeof (_c = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _c) || Object, (typeof (_d = typeof decision_service_1.DecisionApiService !== 'undefined' && decision_service_1.DecisionApiService) === 'function' && _d) || Object, (typeof (_e = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof goal_service_1.GoalApiService !== 'undefined' && goal_service_1.GoalApiService) === 'function' && _a) || Object, (typeof (_b = typeof deciding_service_1.DecidingService !== 'undefined' && deciding_service_1.DecidingService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
     ], EvaluatingGoalsComponent);
     return EvaluatingGoalsComponent;
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c;
 }());
 exports.EvaluatingGoalsComponent = EvaluatingGoalsComponent;
 
@@ -1106,7 +1106,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var decision_service_1 = __webpack_require__(3);
+var decision_service_1 = __webpack_require__(4);
 var deciding_service_1 = __webpack_require__(2);
 var ResolutionComponent = (function () {
     function ResolutionComponent(_decisionApi, _DecidingService) {
@@ -1236,6 +1236,13 @@ var OptionApiService = (function () {
             return response.json();
         });
     };
+    OptionApiService.prototype.getNewOptions = function () {
+        // return an observable
+        return this._http.get('/api/option/new')
+            .map(function (response) {
+            return response.json();
+        });
+    };
     OptionApiService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
@@ -1312,9 +1319,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(4);
+var router_1 = __webpack_require__(3);
 var interfaces_1 = __webpack_require__(11);
-var decision_service_1 = __webpack_require__(3);
+var decision_service_1 = __webpack_require__(4);
 var deciding_service_1 = __webpack_require__(2);
 var StartDecidingComponent = (function () {
     function StartDecidingComponent(_decidingService, _decisionApi, router) {
@@ -1326,15 +1333,9 @@ var StartDecidingComponent = (function () {
     }
     StartDecidingComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //TODO: Add logic for editing by decision.id
         this.decision = new interfaces_1.Decision();
         this._decisionApi.getNewDecision().subscribe(function (d) { return _this.decision = d; });
-        console.log(this.decision);
-        this.messageSub = this._decidingService.message$.subscribe(function (m) {
-            _this.message = m;
-        });
-        this.decisionSub = this._decidingService.decision$.subscribe(function (d) {
-            _this.decision = d;
-        });
         this._decidingService.updateDecision(this.decision);
     };
     StartDecidingComponent.prototype.setName = function () {
@@ -1345,11 +1346,6 @@ var StartDecidingComponent = (function () {
         this.message = "Decision " + this.decision.name + " Created";
         this._decidingService.updateMessage(this.message);
         this.router.navigate(['./deciding', 'evaluating-goals']);
-    };
-    StartDecidingComponent.prototype.ngOnDestroy = function () {
-        // prevent memory leak when component destroyed
-        this.messageSub.unsubscribe();
-        this.decisionSub.unsubscribe();
     };
     __decorate([
         core_1.Input(), 
@@ -1789,7 +1785,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A59396%2F__webpack_hmr", __webpack_require__(52)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A57972%2F__webpack_hmr", __webpack_require__(52)(module)))
 
 /***/ },
 /* 23 */
@@ -1879,7 +1875,7 @@ exports.AppModule = AppModule;
 
 "use strict";
 "use strict";
-var router_1 = __webpack_require__(4);
+var router_1 = __webpack_require__(3);
 var home_1 = __webpack_require__(18);
 var app_routes = [
     { path: 'home', component: home_1.HomeComponent },
@@ -1915,7 +1911,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(6);
-var decision_service_1 = __webpack_require__(3);
+var decision_service_1 = __webpack_require__(4);
 var goal_service_1 = __webpack_require__(14);
 var option_service_1 = __webpack_require__(15);
 var deciding_service_1 = __webpack_require__(2);
@@ -1957,7 +1953,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var router_1 = __webpack_require__(4);
+var router_1 = __webpack_require__(3);
 var core_1 = __webpack_require__(0);
 var deciding_component_1 = __webpack_require__(8);
 var startDeciding_component_1 = __webpack_require__(17);
@@ -2629,19 +2625,19 @@ module.exports = "<nav class=\"navbar navbar-inverse navbar-static-top\">\r\n   
 /* 39 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Consider your Options</h1>\r\n\r\n<div *ngIf=\"message\">\r\n    <input type=\"text\" [(ngModel)]=\"message\" id=\"message\" class=\"form-control\" />&nbsp;\r\n    <button type='button' (click)=\"confirm()\" class=\"btn btn-success btn-lg\">Confirm</button>\r\n</div>\r\n\r\n<div *ngIf=\"!message\">\r\n    No Message Found!\r\n</div>\r\n\r\n<h2>Your Options</h2>\r\n\r\n<div *ngIf=\"options.length\">\r\n\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionName\">option Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <br />\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Positive Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Negative Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n        \r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Notes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <br/>\r\n        <br/>\r\n        <br />\r\n    </div>\r\n\r\n    <button type='button' class=\"btn btn-success btn-lg\">Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact service!</div>\r\n\r\n\r\n<h2>Your Existing Options</h2>\r\n\r\n<div *ngIf=\"existingOptions.length\">\r\n\r\n    <div *ngFor=\"let option of existingOptions\" class=\"input-group input-group-lg\">\r\n\r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionName\">option Name:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionDescription\">Description:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <br />\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Positive Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Negative Attributes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionDescription\">Notes:</label>\r\n            <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\" />&nbsp;\r\n        </div>\r\n\r\n        <br />\r\n        <br />\r\n        <br />\r\n    </div>\r\n\r\n    <button type='button' class=\"btn btn-success btn-lg\">Next</button>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"!existingOptions.length\">Can't contact option API!</div>";
+module.exports = "<div *ngIf=\"options.length\">\r\n    <h2>Consider your Options</h2>\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        <div class=\"col-lg-6\">\r\n            <label for=\"optionName\">Option:</label>\r\n            <input type=\"text\"\r\n                   (keyup)=\"setOptions()\"  \r\n                   [(ngModel)]=\"option.name\" \r\n                   id=\"optionName\" \r\n                   class=\"form-control\" \r\n                   required/>&nbsp;\r\n        </div>\r\n        <div class=\"col-lg-6\" *ngIf=\"goals.length\">\r\n            <div *ngFor=\"let goal of goals\">\r\n                <label for=\"optionName\">{{goal.name}}</label>\r\n                <input type=\"checkbox\" \r\n                       (keyup)=\"setOptions()\"\r\n                       value=\"{{goal.name}}\"\r\n                       id=\"goalName\"/>\r\n            </div>\r\n        </div>\r\n        <br />\r\n    </div>\r\n    <button type='button'\r\n            (click)=\"confirm()\"\r\n            class=\"btn btn-success btn-lg\">\r\n        Set Options\r\n    </button>\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options service!</div>";
 
 /***/ },
 /* 40 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <header>\r\n        <div *ngIf=\"decision\">           \r\n            <div class=\"input-group input-group-lg col-lg-4\">\r\n                <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <div class=\"navbar\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n    \r\n    <br />\r\n    <p><strong>Event Messages</strong></p>\r\n    <div *ngFor=\"let message of history\">\r\n        <p>{{message}}</p><br />\r\n    </div>\r\n    \r\n    <a routerLink=\"/\">Home</a>\r\n</div>\r\n";
+module.exports = "<div class=\"container\">\r\n    <header>\r\n        <div *ngIf=\"decision\">           \r\n            <div class=\"input-group input-group-lg col-lg-4\">\r\n                <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <div class=\"navbar\" *ngIf=\"userState == 'editing'\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n    \r\n    <br />\r\n    \r\n    <button type='button'\r\n            (click)=\"devViewSwitch()\"\r\n            class=\"btn btn-default btn-lg\">\r\n        Dev View\r\n    </button>\r\n    \r\n    <div *ngIf=\"isDevView\">\r\n        <h1>Decision View Model</h1>\r\n        <div *ngIf=\"decision\">\r\n            <div class=\"input-group input-group-lg col-lg-12\">\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionName\">name</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionId\">id</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.id\" id=\"decisionId\" class=\"form-control edit-able\" readonly />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionDescription\">description</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.description\" id=\"decisionDescription\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionResults\">results</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.results\" id=\"decisionResults\" class=\"form-control edit-able-lg\" />\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Goals</strong>\r\n                <div *ngFor=\"let goal of decision.goals\">\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalRank\">rank</label>\r\n                        <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                            <option value=\"High\">High</option>\r\n                            <option value=\"Medium\">Medium</option>\r\n                            <option value=\"Low\">Low</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Options</strong>\r\n                <div *ngFor=\"let option of decision.options\" class=\"input-group input-group-lg\">\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionDescription\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">positiveAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">negativeAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">notes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <p><strong>Event Messages</strong></p>\r\n        <div *ngFor=\"let message of history\">\r\n            <p>{{message}}</p><br />\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
 /* 41 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\">\r\n    <h2>Evaluate your Goals</h2>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <div *ngFor=\"let goal of goals\">\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalName\">Goal</label>\r\n                <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalRank\">Importance</label>\r\n                <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                    <option value=\"High\">High</option>\r\n                    <option value=\"High\">Medium</option>\r\n                    <option value=\"High\">Low</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <button type='button' (click)=\"confirm()\" class=\"btn btn-success btn-lg\">Set Goals</button> <br/>\r\n        <br />\r\n    </div>\r\n\r\n    <div class=\"help-text\">\r\n        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>\r\n    </div>\r\n    \r\n    <button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n";
+module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\">\r\n    <h2>Evaluate your Goals</h2>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <div *ngFor=\"let goal of goals\">\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalName\">Goal</label>\r\n                <input type=\"text\" \r\n                       [(ngModel)]=\"goal.name\"\r\n                       (keyup)=\"setGoals()\" \r\n                       id=\"goalName\" \r\n                       class=\"form-control\"\r\n                       required/>&nbsp;\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalRank\">Importance</label>\r\n                <select [(ngModel)]=\"goal.rank\"\r\n                        (click)=\"setGoals()\"\r\n                        id=\"goalRank\" \r\n                        class=\"form-control\"\r\n                        required>\r\n                    <option value=\"High\">High</option>\r\n                    <option value=\"Medium\">Medium</option>\r\n                    <option value=\"Low\">Low</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Set Goals\r\n        </button>\r\n        <br />\r\n    </div>\r\n\r\n    <div class=\"help-text\">\r\n        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>\r\n    </div>\r\n    \r\n    <button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n";
 
 /***/ },
 /* 42 */
@@ -2653,7 +2649,7 @@ module.exports = "<h1>Evaluate your Goals</h1>\r\n\r\n<div *ngIf=\"decision\">\r
 /* 43 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"!message\">\r\n    No Message Found!\r\n</div>\r\n\r\n<div *ngIf=\"decision\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <p>What are deciding?</p>\r\n    </div>\r\n    <br/>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <input type=\"text\"\r\n               [(ngModel)]=\"decision.name\"\r\n               (keyup)=\"setName()\"\r\n               (keyup.enter)=\"confirm()\"\r\n               placeholder=\"Ex. Buying a House\"\r\n               class=\"form-control\"/>&nbsp;\r\n        <br/>\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Name Decision\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\" class=\"alert-danger\">Can't contact either decision API or service properly!</div>";
+module.exports = "<div *ngIf=\"decision\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <p>What are deciding?</p>\r\n    </div>\r\n    <br/>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <input type=\"text\"\r\n               [(ngModel)]=\"decision.name\"\r\n               (keyup)=\"setName()\"\r\n               (keyup.enter)=\"confirm()\"\r\n               placeholder=\"Ex. Buying a House\"\r\n               class=\"form-control\"\r\n               required/>&nbsp;\r\n        <br/>\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Name Decision\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\" class=\"alert-danger\">Can't contact either decision API or service properly!</div>";
 
 /***/ },
 /* 44 */

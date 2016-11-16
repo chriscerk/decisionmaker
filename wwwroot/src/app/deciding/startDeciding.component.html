@@ -1,8 +1,4 @@
-﻿<div *ngIf="!message">
-    No Message Found!
-</div>
-
-<div *ngIf="decision" class="center-block text-center">
+﻿<div *ngIf="decision" class="center-block text-center">
     <div class="help-text">
         <p>What are deciding?</p>
     </div>
@@ -13,7 +9,8 @@
                (keyup)="setName()"
                (keyup.enter)="confirm()"
                placeholder="Ex. Buying a House"
-               class="form-control"/>&nbsp;
+               class="form-control"
+               required/>&nbsp;
         <br/>
         <button type='button'
                 (click)="confirm()"

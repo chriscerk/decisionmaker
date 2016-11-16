@@ -6,7 +6,7 @@
             </div>
         </div>
     </header>
-    <div class="navbar">
+    <div class="navbar" *ngIf="userState == 'editing'">
         <ul class="nav navbar-nav">
             <li class="toolbar-item">
                 <a routerLink="start-deciding" routerLinkActive="active">
@@ -37,10 +37,87 @@
     </div>
     
     <br />
-    <p><strong>Event Messages</strong></p>
-    <div *ngFor="let message of history">
-        <p>{{message}}</p><br />
-    </div>
     
-    <a routerLink="/">Home</a>
+    <button type='button'
+            (click)="devViewSwitch()"
+            class="btn btn-default btn-lg">
+        Dev View
+    </button>
+    
+    <div *ngIf="isDevView">
+        <h1>Decision View Model</h1>
+        <div *ngIf="decision">
+            <div class="input-group input-group-lg col-lg-12">
+                <div class="col-lg-3">
+                    <label for="decisionName">name</label>
+                    <input type="text" [(ngModel)]="decision.name" id="decisionName" class="form-control edit-able" />
+                </div>
+                <div class="col-lg-3">
+                    <label for="decisionId">id</label>
+                    <input type="text" [(ngModel)]="decision.id" id="decisionId" class="form-control edit-able" readonly />
+                </div>
+                <div class="col-lg-3">
+                    <label for="decisionDescription">description</label>
+                    <input type="text" [(ngModel)]="decision.description" id="decisionDescription" class="form-control edit-able" />
+                </div>
+                <div class="col-lg-3">
+                    <label for="decisionResults">results</label>
+                    <input type="text" [(ngModel)]="decision.results" id="decisionResults" class="form-control edit-able-lg" />
+                </div>
+                <br/>
+                <br />
+                <strong>Goals</strong>
+                <div *ngFor="let goal of decision.goals">
+                    <div class="col-lg-4">
+                        <label for="goalName">name</label>
+                        <input type="text" [(ngModel)]="goal.name" id="goalName" class="form-control"/>&nbsp;
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="goalRank">rank</label>
+                        <select [(ngModel)]="goal.rank" id="goalRank" class="form-control">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="goalName">description</label>
+                        <input type="text" [(ngModel)]="goal.description" id="goalDescription" class="form-control"/>&nbsp;
+                    </div>
+                </div>
+                <br/>
+                <br />
+                <strong>Options</strong>
+                <div *ngFor="let option of decision.options" class="input-group input-group-lg">
+                    <div class="col-lg-6">
+                        <label for="optionName">name</label>
+                        <input type="text" [(ngModel)]="option.name" id="optionName" class="form-control"/>&nbsp;
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="optionDescription">description</label>
+                        <input type="text" [(ngModel)]="option.description" id="optionDescription" class="form-control"/>&nbsp;
+                    </div>
+                    <br/>
+                    <div class="col-lg-4">
+                        <label for="optionDescription">positiveAttributes</label>
+                        <input type="text" [(ngModel)]="option.positiveAttributes" id="optionPositive" class="form-control"/>&nbsp;
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="optionDescription">negativeAttributes</label>
+                        <input type="text" [(ngModel)]="option.negativeAttributes" id="optionNegative" class="form-control"/>&nbsp;
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="optionDescription">notes</label>
+                        <input type="text" [(ngModel)]="option.notes" id="optionNotes" class="form-control"/>&nbsp;
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <br />
+        <p><strong>Event Messages</strong></p>
+        <div *ngFor="let message of history">
+            <p>{{message}}</p><br />
+        </div>
+    </div>
 </div>

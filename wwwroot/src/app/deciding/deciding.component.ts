@@ -13,12 +13,12 @@ export class DecidingComponent {
     decision: IDecision;
     message: string;
     history: string[] = [];
+    isDevView: boolean;
+    userState: string = "creating";
 
-    constructor(private _decidingService: DecidingService, private _decisionApiService: DecisionApiService)
-    {
-        this._decisionApiService.getNewDecision().subscribe(d => this.decision = d);
-        console.log("Constructed");
-        console.log(this.decision);
+    constructor(private _decidingService: DecidingService,
+        private _decisionApiService: DecisionApiService) {
+        this.isDevView = false;
     }
 
     ngOnInit() {
@@ -32,5 +32,17 @@ export class DecidingComponent {
             d => {
                 this.decision = d;
             });
+        this._decidingService.goals$.subscribe(
+            g => {
+                this.decision.goals = g;
+            });
+        this._decidingService.options$.subscribe(
+            o => {
+                this.decision.options = o;
+            });
+    }
+
+    devViewSwitch() {
+        this.isDevView = !this.isDevView;
     }
 }

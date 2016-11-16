@@ -1,99 +1,31 @@
-﻿<h1>Consider your Options</h1>
-
-<div *ngIf="message">
-    <input type="text" [(ngModel)]="message" id="message" class="form-control" />&nbsp;
-    <button type='button' (click)="confirm()" class="btn btn-success btn-lg">Confirm</button>
-</div>
-
-<div *ngIf="!message">
-    No Message Found!
-</div>
-
-<h2>Your Options</h2>
-
-<div *ngIf="options.length">
-
+﻿<div *ngIf="options.length">
+    <h2>Consider your Options</h2>
     <div *ngFor="let option of options" class="input-group input-group-lg">
-        
         <div class="col-lg-6">
-            <label for="optionName">option Name:</label>
-            <input type="text" [(ngModel)]="option.name" id="optionName" class="form-control" />&nbsp;
+            <label for="optionName">Option:</label>
+            <input type="text"
+                   (keyup)="setOptions()"  
+                   [(ngModel)]="option.name" 
+                   id="optionName" 
+                   class="form-control" 
+                   required/>&nbsp;
         </div>
-        
-        <div class="col-lg-6">
-            <label for="optionDescription">Description:</label>
-            <input type="text" [(ngModel)]="option.description" id="optionDescription" class="form-control" />&nbsp;
+        <div class="col-lg-6" *ngIf="goals.length">
+            <div *ngFor="let goal of goals">
+                <label for="optionName">{{goal.name}}</label>
+                <input type="checkbox" 
+                       (keyup)="setOptions()"
+                       value="{{goal.name}}"
+                       id="goalName"/>
+            </div>
         </div>
-        
-        <br />
-        
-        <div class="col-lg-4">
-            <label for="optionDescription">Positive Attributes:</label>
-            <input type="text" [(ngModel)]="option.positiveAttributes" id="optionPositive" class="form-control" />&nbsp;
-        </div>
-        
-        <div class="col-lg-4">
-            <label for="optionDescription">Negative Attributes:</label>
-            <input type="text" [(ngModel)]="option.negativeAttributes" id="optionNegative" class="form-control" />&nbsp;
-        </div>
-        
-        <div class="col-lg-4">
-            <label for="optionDescription">Notes:</label>
-            <input type="text" [(ngModel)]="option.notes" id="optionNotes" class="form-control" />&nbsp;
-        </div>
-
-        <br/>
-        <br/>
         <br />
     </div>
-
-    <button type='button' class="btn btn-success btn-lg">Next</button>
-
+    <button type='button'
+            (click)="confirm()"
+            class="btn btn-success btn-lg">
+        Set Options
+    </button>
 </div>
 
-<div *ngIf="!options.length">Can't contact service!</div>
-
-
-<h2>Your Existing Options</h2>
-
-<div *ngIf="existingOptions.length">
-
-    <div *ngFor="let option of existingOptions" class="input-group input-group-lg">
-
-        <div class="col-lg-6">
-            <label for="optionName">option Name:</label>
-            <input type="text" [(ngModel)]="option.name" id="optionName" class="form-control" />&nbsp;
-        </div>
-
-        <div class="col-lg-6">
-            <label for="optionDescription">Description:</label>
-            <input type="text" [(ngModel)]="option.description" id="optionDescription" class="form-control" />&nbsp;
-        </div>
-
-        <br />
-
-        <div class="col-lg-4">
-            <label for="optionDescription">Positive Attributes:</label>
-            <input type="text" [(ngModel)]="option.positiveAttributes" id="optionPositive" class="form-control" />&nbsp;
-        </div>
-
-        <div class="col-lg-4">
-            <label for="optionDescription">Negative Attributes:</label>
-            <input type="text" [(ngModel)]="option.negativeAttributes" id="optionNegative" class="form-control" />&nbsp;
-        </div>
-
-        <div class="col-lg-4">
-            <label for="optionDescription">Notes:</label>
-            <input type="text" [(ngModel)]="option.notes" id="optionNotes" class="form-control" />&nbsp;
-        </div>
-
-        <br />
-        <br />
-        <br />
-    </div>
-
-    <button type='button' class="btn btn-success btn-lg">Next</button>
-
-</div>
-
-<div *ngIf="!existingOptions.length">Can't contact option API!</div>
+<div *ngIf="!options.length">Can't contact options service!</div>

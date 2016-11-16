@@ -17,4 +17,12 @@ export class OptionApiService {
                 return <IOption[]>response.json();
             });
     }
+
+    getNewOptions() {
+        // return an observable
+        return this._http.get('/api/option/new')
+            .map((response) => {
+                return <IOption[]>response.json();
+            });
+    }
 }

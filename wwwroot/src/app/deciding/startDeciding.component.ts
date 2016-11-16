@@ -21,18 +21,10 @@ export class StartDecidingComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-        this.decision = new Decision();
-        this._decisionApi.getNewDecision().subscribe(d => this.decision = d);
-        console.log(this.decision);
-        this.messageSub = this._decidingService.message$.subscribe(
-            m => {
-                this.message = m;
-            });
+        //TODO: Add logic for editing by decision.id
+            this.decision = new Decision();
+            this._decisionApi.getNewDecision().subscribe(d => this.decision = d);
 
-        this.decisionSub = this._decidingService.decision$.subscribe(
-            d => {
-                this.decision = d;
-            });
         this._decidingService.updateDecision(this.decision);
     }
 
@@ -45,12 +37,6 @@ export class StartDecidingComponent implements OnInit {
         this.message = "Decision " + this.decision.name + " Created";
         this._decidingService.updateMessage(this.message);
         this.router.navigate(['./deciding', 'evaluating-goals']);
-    }
-
-    ngOnDestroy() {
-        // prevent memory leak when component destroyed
-        this.messageSub.unsubscribe();
-        this.decisionSub.unsubscribe();
     }
 }
 

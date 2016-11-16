@@ -1,5 +1,7 @@
-﻿import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IOption, IDecision } from '../shared/interfaces';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { IOption, IGoal } from '../shared/interfaces';
 import { OptionApiService } from '../core/services/option.service';
 import { DecidingService } from './shared/deciding.service';
 
@@ -8,38 +10,38 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     templateUrl: 'consideringOptions.component.html'
 })
-export class ConsideringOptionsComponent implements OnInit, OnDestroy {
-    @Input() decision: IDecision;
+export class ConsideringOptionsComponent implements OnInit {
     options: IOption[] = [];
+    @Input() goals: IGoal[] = [];
     existingOptions: IOption[] = [];
-    subscription: Subscription;
+    messageSub: Subscription;
+    decisionSub: Subscription;
     confirmed = false;
     @Input() message: string = "Message: Hello Options!";
 
-    constructor(private _optionApi: OptionApiService, private _decidingService: DecidingService) { }
+    constructor(private _optionApi: OptionApiService,
+        private _decidingService: DecidingService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
+        this._optionApi.getNewOptions().subscribe(g => this.options = g);
         this._optionApi.getOptions().subscribe(g => this.existingOptions = g);
+        this._decidingService.updateOptions(this.options);
+    }
 
-        this.subscription = this._decidingService.message$.subscribe(
-            m => {
-                this.message = m;
-            });
-
-        this.options = this.decision.options;
-
-        console.log("Child evaluatingGoals");
-        console.log(this.message);
-        console.log(this.decision);
-        console.log(this.options);
+    setOptions() {
+        this._decidingService.updateOptions(this.options);
     }
 
     confirm() {
         this.confirmed = true;
+        this.message = "Options Created";
         this._decidingService.updateMessage(this.message);
+        //this.router.navigate(['./deciding', 'resolution']);
     }
-    ngOnDestroy() {
-        // prevent memory leak when component destroyed
-        this.subscription.unsubscribe();
+
+    autoFill() {
+        this.options = this.existingOptions;
     }
 }
