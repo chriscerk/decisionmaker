@@ -16,7 +16,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(6);
-var ng2_bootstrap_1 = __webpack_require__(13);
+var ng2_bootstrap_1 = __webpack_require__(12);
 var about_routing_module_1 = __webpack_require__(59);
 var about_component_1 = __webpack_require__(58);
 var AboutModule = (function () {
