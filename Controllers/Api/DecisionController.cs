@@ -35,8 +35,8 @@ namespace decisionmaker.Controllers.Api
                 {
                     new Goal()
                     {
-                        Description = "Hello World!!!!",
-                        Name = "NEW Goal",
+                        Description = "",
+                        Name = "",
                         Rank = ""
                     },
                 },
@@ -44,11 +44,30 @@ namespace decisionmaker.Controllers.Api
                 {
                     new Option()
                     {
-                        Description = "Hello World!!!!",
-                        Name = "NEW Option",
-                        PositiveAttributes = "The good",
-                        NegativeAttributes = "The bad",
-                        Notes = "The ugly"
+                        Description = "",
+                        MetGoals = new[] {"", "", ""},
+                        Name = "",
+                        PositiveAttributes = "",
+                        NegativeAttributes = "",
+                        Notes = ""
+                    },
+                    new Option()
+                    {
+                        Description = "",
+                        MetGoals = new[] {"", "", ""},
+                        Name = "",
+                        PositiveAttributes = "",
+                        NegativeAttributes = "",
+                        Notes = ""
+                    },
+                    new Option()
+                    {
+                        Description = "",
+                        MetGoals = new[] {"", "", ""},
+                        Name = "",
+                        PositiveAttributes = "",
+                        NegativeAttributes = "",
+                        Notes = ""
                     }
                 },
             };

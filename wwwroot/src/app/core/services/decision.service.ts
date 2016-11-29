@@ -25,7 +25,7 @@ export class DecisionApiService {
     }
 
     getDecisionById(id: string) {
-        return this._http.get('/api/decision/'+ id)
+        return this._http.get('/api/decision/' + id)
             .map((response) => {
                 return <IDecision>response.json();
             });

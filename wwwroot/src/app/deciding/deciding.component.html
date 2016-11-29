@@ -4,6 +4,15 @@
             <div class="input-group input-group-lg col-lg-4">
                 <input type="text" [(ngModel)]="decision.name" class="form-control edit-able-lg" />
             </div>
+            <button type='button'
+                    (click)="calc()"
+                    class="btn btn-info btn-lg">
+                Calc
+            </button>
+            <br />
+            <div *ngIf="decision.results">
+                <h1>{{decision.results}}</h1>
+            </div>
         </div>
     </header>
     <div class="navbar" *ngIf="userState == 'editing'">
@@ -35,7 +44,8 @@
         <br />
         <br />
     </div>
-    
+   
+
     <br />
     
     <button type='button'
@@ -92,6 +102,10 @@
                     <div class="col-lg-6">
                         <label for="optionName">name</label>
                         <input type="text" [(ngModel)]="option.name" id="optionName" class="form-control"/>&nbsp;
+                    </div>
+                    <div *ngFor="let metGoal of option.metGoals" class="col-lg-6">
+                        <label for="metGoal">metGoal</label>
+                        {{metGoal}}
                     </div>
                     <div class="col-lg-6">
                         <label for="optionDescription">description</label>

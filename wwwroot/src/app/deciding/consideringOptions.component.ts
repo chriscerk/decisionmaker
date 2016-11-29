@@ -12,12 +12,10 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ConsideringOptionsComponent implements OnInit {
     options: IOption[] = [];
-    @Input() goals: IGoal[] = [];
+    chosenGoals: IGoal[] = [];
     existingOptions: IOption[] = [];
-    messageSub: Subscription;
-    decisionSub: Subscription;
     confirmed = false;
-    @Input() message: string = "Message: Hello Options!";
+    @Input() message: string = 'Message: Hello Options!';
 
     constructor(private _optionApi: OptionApiService,
         private _decidingService: DecidingService,
@@ -27,6 +25,7 @@ export class ConsideringOptionsComponent implements OnInit {
     ngOnInit() {
         this._optionApi.getNewOptions().subscribe(g => this.options = g);
         this._optionApi.getOptions().subscribe(g => this.existingOptions = g);
+        this.chosenGoals = this._decidingService.setGoals;
         this._decidingService.updateOptions(this.options);
     }
 
@@ -36,9 +35,9 @@ export class ConsideringOptionsComponent implements OnInit {
 
     confirm() {
         this.confirmed = true;
-        this.message = "Options Created";
+        this.message = 'Options Created';
         this._decidingService.updateMessage(this.message);
-        //this.router.navigate(['./deciding', 'resolution']);
+        this.router.navigate(['./deciding', 'resolution']);
     }
 
     autoFill() {

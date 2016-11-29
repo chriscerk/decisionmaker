@@ -1,7 +1,7 @@
 ﻿<div *ngIf="options.length">
     <h2>Consider your Options</h2>
     <div *ngFor="let option of options" class="input-group input-group-lg">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <label for="optionName">Option:</label>
             <input type="text"
                    (keyup)="setOptions()"  
@@ -10,16 +10,16 @@
                    class="form-control" 
                    required/>&nbsp;
         </div>
-        <div class="col-lg-6" *ngIf="goals.length">
-            <div *ngFor="let goal of goals">
-                <label for="optionName">{{goal.name}}</label>
+        <div class="col-lg-8" *ngIf="chosenGoals.length">
+            <div *ngFor="let goal of chosenGoals; let i = index;" >
+                <label for="goalName">{{goal.name}}</label>
                 <input type="checkbox" 
-                       (keyup)="setOptions()"
                        value="{{goal.name}}"
-                       id="goalName"/>
+                       [(ngModel)]="option.metGoals[i]"
+                       id="goalName"
+                       />
             </div>
         </div>
-        <br />
     </div>
     <button type='button'
             (click)="confirm()"

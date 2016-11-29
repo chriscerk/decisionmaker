@@ -10,6 +10,7 @@ export interface IGoal {
 export interface IOption {
     id: string;
     name: string;
+    metGoals: string[];
     description: string;
     positiveAttributes: string;
     negativeAttributes: string;

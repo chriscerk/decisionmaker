@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { IGoal } from '../shared/interfaces';
 import { GoalApiService } from '../core/services/goal.service';
-import { DecidingService } from './shared/deciding.service'
+import { DecidingService } from './shared/deciding.service';
 
 @Component({
     templateUrl: 'evaluatingGoals.component.html'
@@ -12,7 +12,7 @@ export class EvaluatingGoalsComponent implements OnInit {
     goals: IGoal[] = [];
     existingGoals: IGoal[] = [];
     confirmed = false;
-    @Input() message: string = "Message: Hello Goals!";
+    @Input() message: string = 'Message: Hello Goals!';
 
     constructor(private _goalApi: GoalApiService,
         private _decidingService: DecidingService,
@@ -31,7 +31,7 @@ export class EvaluatingGoalsComponent implements OnInit {
 
     confirm() {
         this.confirmed = true;
-        this.message = "Goals Created";
+        this.message = 'Goals Created';
         this._decidingService.updateMessage(this.message);
         this.router.navigate(['./deciding', 'considering-options']);
     }

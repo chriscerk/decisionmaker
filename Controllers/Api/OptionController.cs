@@ -86,6 +86,7 @@ namespace decisionmaker.Controllers
                 {
                     Description = "",
                     Name = "",
+                    MetGoals = new[] {"", "", ""},
                     PositiveAttributes = "",
                     NegativeAttributes = "",
                     Notes = ""
@@ -94,6 +95,7 @@ namespace decisionmaker.Controllers
                 {
                     Description = "",
                     Name = "",
+                    MetGoals = new[] {"", "", ""},
                     PositiveAttributes = "",
                     NegativeAttributes = "",
                     Notes = ""
