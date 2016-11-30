@@ -7,6 +7,7 @@ import { IOption, IGoal, IDecision } from '../../shared/interfaces';
 export class DecidingService {
 
     setGoals: IGoal[];
+    finalDecision: IDecision;
 
     // Observable sources
     private messageSource = new Subject<string>();
@@ -25,6 +26,7 @@ export class DecidingService {
         this.messageSource.next(m);
     }
     updateDecision(d: IDecision) {
+        this.finalDecision = d;
         this.decisionSource.next(d);
     }
     updateGoals(goals: IGoal[]) {

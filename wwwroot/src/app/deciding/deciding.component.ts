@@ -42,21 +42,12 @@ export class DecidingComponent implements OnInit {
             });
     }
 
-    calc() {
-        var best = 0;
-        var bestIndex = 0;
-
-        for (let i = 0; i < this.decision.options.length; i++) {
-            let optionSize = this.decision.options[i].metGoals.length;
-            if (this.decision.options[i].metGoals.length > best) {
-                best = optionSize;
-                bestIndex = i;
-            }
-        }
-        this.decision.results = this.decision.options[bestIndex].name + " is the best choice.";
-    }
-
     devViewSwitch() {
         this.isDevView = !this.isDevView;
+        if (this.userState === 'creating') {
+            this.userState = 'editing';
+        } else {
+            this.userState = 'creating';
+        }
     }
 }

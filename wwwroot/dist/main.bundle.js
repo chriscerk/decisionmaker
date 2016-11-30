@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5c8d228de5edae919fb1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5b9be54dda3612331740"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -895,6 +895,7 @@ var DecidingService = (function () {
         this.messageSource.next(m);
     };
     DecidingService.prototype.updateDecision = function (d) {
+        this.finalDecision = d;
         this.decisionSource.next(d);
     };
     DecidingService.prototype.updateGoals = function (goals) {
@@ -2292,20 +2293,14 @@ var DecidingComponent = (function () {
             _this.decision.options = o;
         });
     };
-    DecidingComponent.prototype.calc = function () {
-        var best = 0;
-        var bestIndex = 0;
-        for (var i = 0; i < this.decision.options.length; i++) {
-            var optionSize = this.decision.options[i].metGoals.length;
-            if (this.decision.options[i].metGoals.length > best) {
-                best = optionSize;
-                bestIndex = i;
-            }
-        }
-        this.decision.results = this.decision.options[bestIndex].name + " is the best choice.";
-    };
     DecidingComponent.prototype.devViewSwitch = function () {
         this.isDevView = !this.isDevView;
+        if (this.userState === 'creating') {
+            this.userState = 'editing';
+        }
+        else {
+            this.userState = 'creating';
+        }
     };
     DecidingComponent = __decorate([
         core_1.Component({
@@ -2402,13 +2397,37 @@ var core_1 = __webpack_require__(0);
 var decision_service_1 = __webpack_require__(12);
 var deciding_service_1 = __webpack_require__(6);
 var ResolutionComponent = (function () {
-    function ResolutionComponent(_decisionApi, _DecidingService) {
+    function ResolutionComponent(_decisionApi, _decidingService) {
         this._decisionApi = _decisionApi;
-        this._DecidingService = _DecidingService;
+        this._decidingService = _decidingService;
     }
     ResolutionComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._decisionApi.getDecision().subscribe(function (d) { return _this.decision = d; });
+        this.decision = this._decidingService.finalDecision;
+        this.decision.results = this.calculateResults();
+        this.resultsCalculated = true;
+    };
+    ResolutionComponent.prototype.calculateResults = function () {
+        var best = -1;
+        var bestIndex = 0;
+        for (var i = 0; i < this.decision.options.length; i++) {
+            var optionSize = this.decision.options[i].metGoals.length;
+            var goalsMet = 0;
+            for (var j = 0; j < optionSize; j++) {
+                if (this.decision.options[i].metGoals[j]) {
+                    goalsMet++;
+                }
+            }
+            if (goalsMet !== 0 && goalsMet > best) {
+                best = goalsMet;
+                bestIndex = i;
+            }
+        }
+        if (best > -1) {
+            return this.decision.options[bestIndex].name + " is the wise choice.";
+        }
+        else {
+            return "None of the options are a good decision.";
+        }
     };
     ResolutionComponent = __decorate([
         core_1.Component({
@@ -6276,7 +6295,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A56048%2F__webpack_hmr", __webpack_require__(165)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A56877%2F__webpack_hmr", __webpack_require__(165)(module)))
 
 /***/ },
 /* 88 */
@@ -14434,13 +14453,13 @@ module.exports = "<nav class=\"navbar navbar-inverse navbar-static-top\">\r\n   
 /* 149 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"options.length\">\r\n    <h2>Consider your Options</h2>\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionName\">Option:</label>\r\n            <input type=\"text\"\r\n                   (keyup)=\"setOptions()\"  \r\n                   [(ngModel)]=\"option.name\" \r\n                   id=\"optionName\" \r\n                   class=\"form-control\" \r\n                   required/>&nbsp;\r\n        </div>\r\n        <div class=\"col-lg-8\" *ngIf=\"chosenGoals.length\">\r\n            <div *ngFor=\"let goal of chosenGoals; let i = index;\" >\r\n                <label for=\"goalName\">{{goal.name}}</label>\r\n                <input type=\"checkbox\" \r\n                       value=\"{{goal.name}}\"\r\n                       [(ngModel)]=\"option.metGoals[i]\"\r\n                       id=\"goalName\"\r\n                       />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <button type='button'\r\n            (click)=\"confirm()\"\r\n            class=\"btn btn-success btn-lg\">\r\n        Set Options\r\n    </button>\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options service!</div>";
+module.exports = "<div *ngIf=\"options.length\">\r\n    <h2>Consider your Options</h2>\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionName\">Option:</label>\r\n            <input type=\"text\"\r\n                   (keyup)=\"setOptions()\"  \r\n                   [(ngModel)]=\"option.name\" \r\n                   id=\"optionName\" \r\n                   class=\"form-control\" \r\n                   required/>&nbsp;\r\n        </div>\r\n        <div class=\"col-lg-8\" *ngIf=\"chosenGoals.length\">\r\n            <div *ngFor=\"let goal of chosenGoals; let i = index;\" >\r\n                <label for=\"goalName\">{{goal.name}}</label>\r\n                <input type=\"checkbox\" \r\n                       value=\"false\"\r\n                       [(ngModel)]=\"option.metGoals[i]\"\r\n                       id=\"goalName\"\r\n                       />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <button type='button'\r\n            (click)=\"confirm()\"\r\n            class=\"btn btn-success btn-lg\">\r\n        Set Options\r\n    </button>\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options service!</div>";
 
 /***/ },
 /* 150 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <header>\r\n        <div *ngIf=\"decision\">           \r\n            <div class=\"input-group input-group-lg col-lg-4\">\r\n                <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n            </div>\r\n            <button type='button'\r\n                    (click)=\"calc()\"\r\n                    class=\"btn btn-info btn-lg\">\r\n                Calc\r\n            </button>\r\n            <br />\r\n            <div *ngIf=\"decision.results\">\r\n                <h1>{{decision.results}}</h1>\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <div class=\"navbar\" *ngIf=\"userState == 'editing'\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n   \r\n\r\n    <br />\r\n    \r\n    <button type='button'\r\n            (click)=\"devViewSwitch()\"\r\n            class=\"btn btn-default btn-lg\">\r\n        Dev View\r\n    </button>\r\n    \r\n    <div *ngIf=\"isDevView\">\r\n        <h1>Decision View Model</h1>\r\n        <div *ngIf=\"decision\">\r\n            <div class=\"input-group input-group-lg col-lg-12\">\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionName\">name</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionId\">id</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.id\" id=\"decisionId\" class=\"form-control edit-able\" readonly />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionDescription\">description</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.description\" id=\"decisionDescription\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionResults\">results</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.results\" id=\"decisionResults\" class=\"form-control edit-able-lg\" />\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Goals</strong>\r\n                <div *ngFor=\"let goal of decision.goals\">\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalRank\">rank</label>\r\n                        <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                            <option value=\"High\">High</option>\r\n                            <option value=\"Medium\">Medium</option>\r\n                            <option value=\"Low\">Low</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Options</strong>\r\n                <div *ngFor=\"let option of decision.options\" class=\"input-group input-group-lg\">\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div *ngFor=\"let metGoal of option.metGoals\" class=\"col-lg-6\">\r\n                        <label for=\"metGoal\">metGoal</label>\r\n                        {{metGoal}}\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionDescription\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">positiveAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">negativeAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">notes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <p><strong>Event Messages</strong></p>\r\n        <div *ngFor=\"let message of history\">\r\n            <p>{{message}}</p><br />\r\n        </div>\r\n    </div>\r\n</div>\r\n";
+module.exports = "<div class=\"container\">\r\n    <header>\r\n        <div *ngIf=\"decision\">           \r\n            <div class=\"input-group input-group-lg col-lg-4\">\r\n                <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n            </div>\r\n            <br />\r\n        </div>\r\n    </header>\r\n    <div class=\"navbar\" *ngIf=\"userState == 'editing'\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n   \r\n\r\n    <br />\r\n    \r\n    <button type='button'\r\n            (click)=\"devViewSwitch()\"\r\n            class=\"btn btn-default btn-lg\">\r\n        Dev View\r\n    </button>\r\n    \r\n    <div *ngIf=\"isDevView\">\r\n        <h1>Decision View Model</h1>\r\n        <div *ngIf=\"decision\">\r\n            <div class=\"input-group input-group-lg col-lg-12\">\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionName\">name</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionId\">id</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.id\" id=\"decisionId\" class=\"form-control edit-able\" readonly />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionDescription\">description</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.description\" id=\"decisionDescription\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionResults\">results</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.results\" id=\"decisionResults\" class=\"form-control edit-able-lg\" />\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Goals</strong>\r\n                <div *ngFor=\"let goal of decision.goals\">\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalRank\">rank</label>\r\n                        <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                            <option value=\"High\">High</option>\r\n                            <option value=\"Medium\">Medium</option>\r\n                            <option value=\"Low\">Low</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Options</strong>\r\n                <div *ngFor=\"let option of decision.options\" class=\"input-group input-group-lg\">\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div *ngFor=\"let metGoal of option.metGoals\" class=\"col-lg-6\">\r\n                        <label for=\"metGoal\">metGoal</label>\r\n                        {{metGoal}}\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionDescription\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">positiveAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">negativeAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">notes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <p><strong>Event Messages</strong></p>\r\n        <div *ngFor=\"let message of history\">\r\n            <p>{{message}}</p><br />\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
 /* 151 */
@@ -14452,7 +14471,7 @@ module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\"
 /* 152 */
 /***/ function(module, exports) {
 
-module.exports = "<h1>Resolution</h1>\r\n";
+module.exports = "<strong>Resolution</strong>\r\n<br/>\r\n\r\n<div *ngIf=\"resultsCalculated\">\r\n    <h1>{{decision.results}}</h1>\r\n</div>\r\n<div *ngIf=\"!resultsCalculated\">\r\n    Calculating Results...\r\n</div>\r\n";
 
 /***/ },
 /* 153 */

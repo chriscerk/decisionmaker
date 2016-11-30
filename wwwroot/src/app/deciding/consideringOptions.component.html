@@ -14,7 +14,7 @@
             <div *ngFor="let goal of chosenGoals; let i = index;" >
                 <label for="goalName">{{goal.name}}</label>
                 <input type="checkbox" 
-                       value="{{goal.name}}"
+                       value="false"
                        [(ngModel)]="option.metGoals[i]"
                        id="goalName"
                        />

@@ -1,1 +1,9 @@
-﻿<h1>Resolution</h1>
+﻿<strong>Resolution</strong>
+<br/>
+
+<div *ngIf="resultsCalculated">
+    <h1>{{decision.results}}</h1>
+</div>
+<div *ngIf="!resultsCalculated">
+    Calculating Results...
+</div>
