@@ -1,8 +1,9 @@
-# [In Development]
+# [In Mid Development]
 
-.NET Core + Angular Universal
+Web Application built with .NET Core + Angular Universal
 
-# Steps:
-npm build:vendor
-set ASPNETCORE_ENVIRONMENT="Development"
+## Steps:
+dotnet restore
+npm run build:vendor
+set ASPNETCORE_ENVIRONMENT=Development
 npm start
