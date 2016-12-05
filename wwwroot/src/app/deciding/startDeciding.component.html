@@ -2,23 +2,24 @@
     <div class="help-text">
         <strong>What are deciding?</strong>
     </div>
-    <br />
+    <br/>
     <div class="input-group input-group-lg center-block text-center col-lg-4">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" 
-                   [(ngModel)]="decision.name"
-                   (keyup)="setName()"
-                   (keyup.enter)="confirm()"
-                   type="text" 
-                   id="sample3" 
-                   required>
-            <label class="mdl-textfield__label" for="sample3">Ex. Buying a House</label>
-        </div>
+        <mdl-textfield type="text"
+                        [(ngModel)]="decision.name"
+                        (keyup)="setName()"
+                        (keyup.enter)="confirm()"
+                        label="Decision Name (Buying a Car)"
+                        required>
+        </mdl-textfield>
+        <br />
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                (click)="confirm()">
+                (click)="confirm()"
+                type="submit">
             Name Decision
         </button>
     </div>
 </div>
 
 <div *ngIf="!decision" class="alert-danger">Can't contact either decision API or service properly!</div>
+
+

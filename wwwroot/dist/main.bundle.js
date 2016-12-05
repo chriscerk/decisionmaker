@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bc7a6537543cc4f6bef4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "21fbf0e0eed2db135620"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -766,14 +766,14 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(172)(__webpack_require__.s = 172);
+/******/ 	return hotCreateRequire(173)(__webpack_require__.s = 173);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(1);
+module.exports = (__webpack_require__(2))(0);
 
 /***/ },
 /* 1 */
@@ -846,19 +846,19 @@ module.exports = vendor_lib;
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(20);
+module.exports = (__webpack_require__(2))(10);
 
 /***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(17);
+module.exports = (__webpack_require__(2))(12);
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(34);
+module.exports = (__webpack_require__(2))(17);
 
 /***/ },
 /* 6 */
@@ -918,19 +918,19 @@ exports.DecidingService = DecidingService;
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(487);
+module.exports = (__webpack_require__(2))(515);
 
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(720);
+module.exports = (__webpack_require__(2))(778);
 
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(0);
+module.exports = (__webpack_require__(2))(1);
 
 /***/ },
 /* 10 */
@@ -1155,7 +1155,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(7);
-__webpack_require__(31);
+__webpack_require__(30);
 var DecisionApiService = (function () {
     function DecisionApiService(_http) {
         this._http = _http;
@@ -2445,19 +2445,19 @@ exports.ResolutionComponent = ResolutionComponent;
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(81);
+module.exports = (__webpack_require__(2))(1006);
 
 /***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(943);
+module.exports = (__webpack_require__(2))(59);
 
 /***/ },
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(920);
+module.exports = (__webpack_require__(2))(983);
 
 /***/ },
 /* 33 */
@@ -3816,7 +3816,7 @@ function extendObject(dest) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_errors__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogContainer; });
 var __extends = (this && this.__extends) || function (d, b) {
@@ -3982,21 +3982,21 @@ function coerceToNumber(value) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_catch__);
 /* unused harmony export MdIconNameNotFoundError */
 /* unused harmony export MdIconSvgTagNotFoundError */
@@ -5680,7 +5680,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(7);
-__webpack_require__(31);
+__webpack_require__(30);
 var GoalApiService = (function () {
     function GoalApiService(_http) {
         this._http = _http;
@@ -5726,7 +5726,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(7);
-__webpack_require__(31);
+__webpack_require__(30);
 var OptionApiService = (function () {
     function OptionApiService(_http) {
         this._http = _http;
@@ -5774,6 +5774,7 @@ var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(3);
 var ng2_bootstrap_1 = __webpack_require__(32);
 var material_1 = __webpack_require__(56);
+var angular2_mdl_1 = __webpack_require__(171);
 var deciding_routing_module_1 = __webpack_require__(136);
 var deciding_component_1 = __webpack_require__(27);
 var startDeciding_component_1 = __webpack_require__(81);
@@ -5794,6 +5795,7 @@ var DecidingModule = (function () {
             ],
             imports: [
                 common_1.CommonModule,
+                angular2_mdl_1.MdlModule,
                 ng2_bootstrap_1.Ng2BootstrapModule,
                 deciding_routing_module_1.DecidingRoutingModule,
                 material_1.MaterialModule.forRoot()
@@ -6083,13 +6085,13 @@ module.exports = Html5Entities;
 /* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(585);
+module.exports = (__webpack_require__(2))(643);
 
 /***/ },
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(732);
+module.exports = (__webpack_require__(2))(795);
 
 /***/ },
 /* 86 */
@@ -6097,7 +6099,7 @@ module.exports = (__webpack_require__(2))(732);
 
 "use strict";
 "use strict";
-__webpack_require__(167);
+__webpack_require__(172);
 var angular2_universal_1 = __webpack_require__(85);
 var core_1 = __webpack_require__(0);
 var app_module_1 = __webpack_require__(133);
@@ -6295,7 +6297,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A59635%2F__webpack_hmr", __webpack_require__(165)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=http%3A%2F%2Flocalhost%3A63926%2F__webpack_hmr", __webpack_require__(169)(module)))
 
 /***/ },
 /* 88 */
@@ -7863,7 +7865,7 @@ var MdUniqueSelectionDispatcher = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdGestureConfig; });
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -11899,7 +11901,7 @@ var MdSidenavModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(9);
@@ -12251,7 +12253,7 @@ var MdSlideToggleModule = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(1);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MD_SLIDER_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdSliderChange; });
@@ -13643,6 +13645,7 @@ var core_1 = __webpack_require__(0);
 var ng2_bootstrap_1 = __webpack_require__(32);
 var material_1 = __webpack_require__(56);
 var angular2_universal_1 = __webpack_require__(85);
+var angular2_mdl_1 = __webpack_require__(171);
 var app_routing_1 = __webpack_require__(134);
 var app_component_1 = __webpack_require__(132);
 var home_1 = __webpack_require__(82);
@@ -13666,6 +13669,7 @@ var AppModule = (function () {
                 deciding_1.DecidingModule,
                 shared_module_1.SharedModule,
                 ng2_bootstrap_1.Ng2BootstrapModule,
+                angular2_mdl_1.MdlModule,
                 material_1.MaterialModule.forRoot()
             ],
             bootstrap: [app_component_1.AppComponent]
@@ -13688,7 +13692,7 @@ var home_1 = __webpack_require__(82);
 var app_routes = [
     { path: 'home', component: home_1.HomeComponent },
     { path: 'deciding', loadChildren: function () { return new Promise(function (resolve) { Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) { resolve(__webpack_require__(80)['DecidingModule']); }).bind(null, __webpack_require__)); }); } },
-    { path: 'about', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* nsure */(0).catch(function(err) { __webpack_require__.oe(err); }).then((function (require) { resolve(__webpack_require__(173)['AboutModule']); }).bind(null, __webpack_require__)); }); } },
+    { path: 'about', loadChildren: function () { return new Promise(function (resolve) { __webpack_require__.e/* nsure */(0).catch(function(err) { __webpack_require__.oe(err); }).then((function (require) { resolve(__webpack_require__(174)['AboutModule']); }).bind(null, __webpack_require__)); }); } },
     { path: '**', redirectTo: 'home' }
 ];
 exports.app_routing = router_1.RouterModule.forRoot(app_routes);
@@ -14453,19 +14457,19 @@ module.exports = "<header class=\"mdl-layout__header\">\r\n    <nav class=\"navb
 /* 149 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"options.length\">\r\n    <h2>Consider your Options</h2>\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg\">\r\n        <div class=\"col-lg-4\">\r\n            <label for=\"optionName\">Option:</label>\r\n            <input type=\"text\"\r\n                   (keyup)=\"setOptions()\"  \r\n                   [(ngModel)]=\"option.name\" \r\n                   id=\"optionName\" \r\n                   class=\"form-control\" \r\n                   required/>&nbsp;\r\n        </div>\r\n        <div class=\"col-lg-8\" *ngIf=\"chosenGoals.length\">\r\n            <div *ngFor=\"let goal of chosenGoals; let i = index;\" >\r\n                <label for=\"goalName\">{{goal.name}}</label>\r\n                <input type=\"checkbox\" \r\n                       value=\"false\"\r\n                       [(ngModel)]=\"option.metGoals[i]\"\r\n                       id=\"goalName\"\r\n                       />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <button type='button'\r\n            (click)=\"confirm()\"\r\n            class=\"btn btn-success btn-lg\">\r\n        Set Options\r\n    </button>\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options service!</div>";
+module.exports = "<div *ngIf=\"options.length\">\r\n    <h2>Consider your Options</h2>\r\n    <div *ngFor=\"let option of options\" class=\"input-group input-group-lg center-block text-center\">\r\n        <div class=\"col-lg-4\">\r\n            <mdl-textfield type=\"text\"\r\n                           (keyup)=\"setOptions()\"  \r\n                           [(ngModel)]=\"option.name\" \r\n                           id=\"optionName\"\r\n                           label=\"Option\" \r\n                           required>\r\n            </mdl-textfield>\r\n        </div>\r\n        <div class=\"col-lg-8\" *ngIf=\"chosenGoals.length\">\r\n            <span *ngFor=\"let goal of chosenGoals; let i = index;\" >\r\n                <mdl-checkbox type=\"checkbox\"\r\n                              value=\"false\"\r\n                              [(ngModel)]=\"option.metGoals[i]\"\r\n                              id=\"goalName\">\r\n                    {{goal.name}}\r\n                </mdl-checkbox>\r\n            </span>\r\n        </div>\r\n    </div>\r\n    <button type='button'\r\n            (click)=\"confirm()\"\r\n            class=\"btn btn-success btn-lg\">\r\n        Set Options\r\n    </button>\r\n</div>\r\n\r\n<div *ngIf=\"!options.length\">Can't contact options service!</div>";
 
 /***/ },
 /* 150 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <br />\r\n    <br />\r\n    <div *ngIf=\"decision\">           \r\n        <div class=\"input-group input-group-lg col-lg-4\">\r\n            <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"navbar\" *ngIf=\"userState == 'editing'\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n        <br />\r\n        <br />\r\n    </div>\r\n   \r\n\r\n    <br />\r\n    \r\n    <button (click)=\"devViewSwitch()\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored\">\r\n        Dev View\r\n    </button>\r\n    \r\n    <div *ngIf=\"isDevView\">\r\n        <h1>Decision View Model</h1>\r\n        <div *ngIf=\"decision\">\r\n            <div class=\"input-group input-group-lg col-lg-12\">\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionName\">name</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionId\">id</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.id\" id=\"decisionId\" class=\"form-control edit-able\" readonly />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionDescription\">description</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.description\" id=\"decisionDescription\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionResults\">results</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.results\" id=\"decisionResults\" class=\"form-control edit-able-lg\" />\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Goals</strong>\r\n                <div *ngFor=\"let goal of decision.goals\">\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalRank\">rank</label>\r\n                        <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                            <option value=\"High\">High</option>\r\n                            <option value=\"Medium\">Medium</option>\r\n                            <option value=\"Low\">Low</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Options</strong>\r\n                <div *ngFor=\"let option of decision.options\" class=\"input-group input-group-lg\">\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div *ngFor=\"let metGoal of option.metGoals\" class=\"col-lg-6\">\r\n                        <label for=\"metGoal\">metGoal</label>\r\n                        {{metGoal}}\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionDescription\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">positiveAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">negativeAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">notes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <p><strong>Event Messages</strong></p>\r\n        <div *ngFor=\"let message of history\">\r\n            <p>{{message}}</p><br />\r\n        </div>\r\n    </div>\r\n</div>\r\n";
+module.exports = "<div class=\"container\">\r\n    <br />\r\n    <br />\r\n    <div *ngIf=\"decision\">           \r\n        <div class=\"input-group input-group-lg col-lg-4\">\r\n            <input type=\"text\" [(ngModel)]=\"decision.name\" class=\"form-control edit-able-lg\" />\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"navbar\" *ngIf=\"userState == 'editing'\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"start-deciding\" routerLinkActive=\"active\">\r\n                    Start\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"evaluating-goals\" routerLinkActive=\"active\">\r\n                    Evaluating Goals\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"considering-options\" routerLinkActive=\"active\">\r\n                    Considering Options\r\n                </a>\r\n            </li>\r\n            <li class=\"toolbar-item\">\r\n                <a routerLink=\"resolution\" routerLinkActive=\"active\">\r\n                    Resolution\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"container\">\r\n        <br/>\r\n        <br/>\r\n        <router-outlet></router-outlet>\r\n        <br/>\r\n        <br/>\r\n    </div>\r\n   \r\n\r\n    <br />\r\n    \r\n    <button (click)=\"devViewSwitch()\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored\">\r\n        Dev View\r\n    </button>\r\n    \r\n    <div *ngIf=\"isDevView\">\r\n        <h1>Decision View Model</h1>\r\n        <div *ngIf=\"decision\">\r\n            <div class=\"input-group input-group-lg col-lg-12\">\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionName\">name</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.name\" id=\"decisionName\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionId\">id</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.id\" id=\"decisionId\" class=\"form-control edit-able\" readonly />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionDescription\">description</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.description\" id=\"decisionDescription\" class=\"form-control edit-able\" />\r\n                </div>\r\n                <div class=\"col-lg-3\">\r\n                    <label for=\"decisionResults\">results</label>\r\n                    <input type=\"text\" [(ngModel)]=\"decision.results\" id=\"decisionResults\" class=\"form-control edit-able-lg\" />\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Goals</strong>\r\n                <div *ngFor=\"let goal of decision.goals\">\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.name\" id=\"goalName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalRank\">rank</label>\r\n                        <select [(ngModel)]=\"goal.rank\" id=\"goalRank\" class=\"form-control\">\r\n                            <option value=\"High\">High</option>\r\n                            <option value=\"Medium\">Medium</option>\r\n                            <option value=\"Low\">Low</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"goalName\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"goal.description\" id=\"goalDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n                <br />\r\n                <strong>Options</strong>\r\n                <div *ngFor=\"let option of decision.options\" class=\"input-group input-group-lg\">\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionName\">name</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.name\" id=\"optionName\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div *ngFor=\"let metGoal of option.metGoals\" class=\"col-lg-6\">\r\n                        <label for=\"metGoal\">metGoal</label>\r\n                        {{metGoal}}\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <label for=\"optionDescription\">description</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.description\" id=\"optionDescription\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">positiveAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.positiveAttributes\" id=\"optionPositive\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">negativeAttributes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.negativeAttributes\" id=\"optionNegative\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <div class=\"col-lg-4\">\r\n                        <label for=\"optionDescription\">notes</label>\r\n                        <input type=\"text\" [(ngModel)]=\"option.notes\" id=\"optionNotes\" class=\"form-control\"/>&nbsp;\r\n                    </div>\r\n                    <br/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <p><strong>Event Messages</strong></p>\r\n        <div *ngFor=\"let message of history\">\r\n            <p>{{message}}</p><br />\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
 /* 151 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\">\r\n    <h2>Evaluate your Goals</h2>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <div *ngFor=\"let goal of goals\">\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalName\">Goal</label>\r\n                <input type=\"text\" \r\n                       [(ngModel)]=\"goal.name\"\r\n                       (keyup)=\"setGoals()\" \r\n                       id=\"goalName\" \r\n                       class=\"form-control\"\r\n                       required/>&nbsp;\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalRank\">Importance</label>\r\n                <select [(ngModel)]=\"goal.rank\"\r\n                        (click)=\"setGoals()\"\r\n                        id=\"goalRank\" \r\n                        class=\"form-control\"\r\n                        required>\r\n                    <option value=\"High\">High</option>\r\n                    <option value=\"Medium\">Medium</option>\r\n                    <option value=\"Low\">Low</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <br />\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Set Goals\r\n        </button>\r\n        <br />\r\n    </div>\r\n\r\n    <div class=\"help-text\">\r\n        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>\r\n    </div>\r\n    \r\n    <button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n";
+module.exports = "<div *ngIf=\"goals.length\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <strong>Three goals that you'd like to achieve in making your decision.</strong>\r\n    </div>\r\n    <br/>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-6\">\r\n        <div *ngFor=\"let goal of goals\">\r\n            <div class=\"col-lg-6\">\r\n                <mdl-textfield type=\"text\"\r\n                               [(ngModel)]=\"goal.name\"\r\n                               (keyup)=\"setGoals()\" \r\n                               id=\"goalName\" \r\n                               label=\"Goal\"\r\n                               required>&nbsp;\r\n                </mdl-textfield>\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n                <label for=\"goalRank\">Importance</label>\r\n                <select [(ngModel)]=\"goal.rank\"\r\n                        (click)=\"setGoals()\"\r\n                        id=\"goalRank\" \r\n                        class=\"form-control\"\r\n                        required>\r\n                    <option value=\"High\">High</option>\r\n                    <option value=\"Medium\">Medium</option>\r\n                    <option value=\"Low\">Low</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <button type='button'\r\n                (click)=\"confirm()\"\r\n                class=\"btn btn-success btn-lg\">\r\n            Set Goals\r\n        </button>\r\n    </div>\r\n    <br/>\r\n    <button type='button' (click)=\"autoFill()\" class=\"btn btn-default btn-lg\">Autofill</button>\r\n</div>\r\n\r\n<div *ngIf=\"!goals.length\">No goals found!</div>\r\n";
 
 /***/ },
 /* 152 */
@@ -14477,13 +14481,13 @@ module.exports = "<strong>Resolution</strong>\r\n<br/>\r\n\r\n<div *ngIf=\"resul
 /* 153 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"decision\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <strong>What are deciding?</strong>\r\n    </div>\r\n    <br />\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <div class=\"mdl-textfield mdl-js-textfield mdl-textfield--floating-label\">\r\n            <input class=\"mdl-textfield__input\" \r\n                   [(ngModel)]=\"decision.name\"\r\n                   (keyup)=\"setName()\"\r\n                   (keyup.enter)=\"confirm()\"\r\n                   type=\"text\" \r\n                   id=\"sample3\" \r\n                   required>\r\n            <label class=\"mdl-textfield__label\" for=\"sample3\">Ex. Buying a House</label>\r\n        </div>\r\n        <button class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\"\r\n                (click)=\"confirm()\">\r\n            Name Decision\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\" class=\"alert-danger\">Can't contact either decision API or service properly!</div>\r\n";
+module.exports = "<div *ngIf=\"decision\" class=\"center-block text-center\">\r\n    <div class=\"help-text\">\r\n        <strong>What are deciding?</strong>\r\n    </div>\r\n    <br/>\r\n    <div class=\"input-group input-group-lg center-block text-center col-lg-4\">\r\n        <mdl-textfield type=\"text\"\r\n                        [(ngModel)]=\"decision.name\"\r\n                        (keyup)=\"setName()\"\r\n                        (keyup.enter)=\"confirm()\"\r\n                        label=\"Decision Name (Buying a Car)\"\r\n                        required>\r\n        </mdl-textfield>\r\n        <br />\r\n        <button class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\"\r\n                (click)=\"confirm()\"\r\n                type=\"submit\">\r\n            Name Decision\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!decision\" class=\"alert-danger\">Can't contact either decision API or service properly!</div>\r\n\r\n\r\n";
 
 /***/ },
 /* 154 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\r\n    <div class=\"container\">\r\n        <h1>In Development</h1>\r\n        <p>{{message}}</p>\r\n\r\n        <a role=\"button\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" href=\"https://github.com/chriscerk/decisionmaker\">GitHub Repo</a>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"welcome\">\r\n    <div class=\"container\">\r\n        <h1>In Development</h1>\r\n        <p>{{message}}</p>\r\n        <br/>\r\n        <a role=\"button\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" href=\"https://github.com/chriscerk/decisionmaker\">GitHub Repo</a>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 155 */
@@ -14923,64 +14927,70 @@ module.exports = function(hash, moduleMap, options) {
 /* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(1003);
+module.exports = (__webpack_require__(2))(1017);
 
 /***/ },
 /* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(1006);
+module.exports = (__webpack_require__(2))(1026);
 
 /***/ },
 /* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(1040);
+module.exports = (__webpack_require__(2))(1043);
 
 /***/ },
 /* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(1208);
+module.exports = (__webpack_require__(2))(1060);
 
 /***/ },
 /* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(584);
+module.exports = (__webpack_require__(2))(1066);
 
 /***/ },
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(728);
+module.exports = (__webpack_require__(2))(1069);
 
 /***/ },
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(954);
+module.exports = (__webpack_require__(2))(1103);
 
 /***/ },
 /* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(963);
+module.exports = (__webpack_require__(2))(1271);
 
 /***/ },
 /* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(980);
+module.exports = (__webpack_require__(2))(642);
 
 /***/ },
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(2))(997);
+module.exports = (__webpack_require__(2))(788);
 
 /***/ },
 /* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(2))(791);
+
+/***/ },
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(87);

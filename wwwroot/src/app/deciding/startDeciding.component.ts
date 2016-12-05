@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdlModule } from 'angular2-mdl';
 
 import { IDecision, Decision } from '../shared/interfaces';
 import { DecisionApiService } from '../core/services/decision.service';

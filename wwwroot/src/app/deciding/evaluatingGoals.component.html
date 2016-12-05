@@ -1,15 +1,18 @@
 ﻿<div *ngIf="goals.length" class="center-block text-center">
-    <h2>Evaluate your Goals</h2>
-    <div class="input-group input-group-lg center-block text-center col-lg-4">
+    <div class="help-text">
+        <strong>Three goals that you'd like to achieve in making your decision.</strong>
+    </div>
+    <br/>
+    <div class="input-group input-group-lg center-block text-center col-lg-6">
         <div *ngFor="let goal of goals">
             <div class="col-lg-6">
-                <label for="goalName">Goal</label>
-                <input type="text" 
-                       [(ngModel)]="goal.name"
-                       (keyup)="setGoals()" 
-                       id="goalName" 
-                       class="form-control"
-                       required/>&nbsp;
+                <mdl-textfield type="text"
+                               [(ngModel)]="goal.name"
+                               (keyup)="setGoals()" 
+                               id="goalName" 
+                               label="Goal"
+                               required>&nbsp;
+                </mdl-textfield>
             </div>
             <div class="col-lg-6">
                 <label for="goalRank">Importance</label>
@@ -24,19 +27,13 @@
                 </select>
             </div>
         </div>
-        <br />
         <button type='button'
                 (click)="confirm()"
                 class="btn btn-success btn-lg">
             Set Goals
         </button>
-        <br />
     </div>
-
-    <div class="help-text">
-        <p>Add three goals that you'd like to achieve in your decision and rank their importance.</p>
-    </div>
-    
+    <br/>
     <button type='button' (click)="autoFill()" class="btn btn-default btn-lg">Autofill</button>
 </div>
 

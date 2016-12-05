@@ -1,6 +1,32 @@
 body {
+    color: #222;
+
     h1 {
-        color: #292929;
+        color: #5e59b7;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    .help-text {
+        font-size: 20px;
+    }
+
+    select {
+        margin-bottom: 20px !important;
+    }
+
+    .welcome {
+        background-color: #e8e8e8;
+        max-width: 600px;
+        border-radius: 550px;
+        padding-left: 100px;
+        padding-top: 175px;
+        padding-bottom: 175px;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .edit-able {
@@ -10,5 +36,25 @@ body {
     .edit-able-lg {
         border: 1px solid rgba(255, 255, 255, 0);
         font-size: 30px !important;
+    }
+
+    
+    .mdl-textfield__input {
+        font-size: 25px;
+    }
+
+    .mdl-button {
+        border-radius: 7px;
+        margin: 0;
+        padding: 33px 20px 33px 20px;
+        font-size: 18px;
+        text-transform: unset;
+        transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+        line-height: 5px;
+        vertical-align: middle;
+    }
+
+    button:hover {
+        background-color: #5e59b7 !important;
     }
 }

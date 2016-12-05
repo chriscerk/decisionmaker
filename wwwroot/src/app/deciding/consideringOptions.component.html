@@ -1,24 +1,24 @@
 ﻿<div *ngIf="options.length">
     <h2>Consider your Options</h2>
-    <div *ngFor="let option of options" class="input-group input-group-lg">
+    <div *ngFor="let option of options" class="input-group input-group-lg center-block text-center">
         <div class="col-lg-4">
-            <label for="optionName">Option:</label>
-            <input type="text"
-                   (keyup)="setOptions()"  
-                   [(ngModel)]="option.name" 
-                   id="optionName" 
-                   class="form-control" 
-                   required/>&nbsp;
+            <mdl-textfield type="text"
+                           (keyup)="setOptions()"  
+                           [(ngModel)]="option.name" 
+                           id="optionName"
+                           label="Option" 
+                           required>
+            </mdl-textfield>
         </div>
         <div class="col-lg-8" *ngIf="chosenGoals.length">
-            <div *ngFor="let goal of chosenGoals; let i = index;" >
-                <label for="goalName">{{goal.name}}</label>
-                <input type="checkbox" 
-                       value="false"
-                       [(ngModel)]="option.metGoals[i]"
-                       id="goalName"
-                       />
-            </div>
+            <span *ngFor="let goal of chosenGoals; let i = index;" >
+                <mdl-checkbox type="checkbox"
+                              value="false"
+                              [(ngModel)]="option.metGoals[i]"
+                              id="goalName">
+                    {{goal.name}}
+                </mdl-checkbox>
+            </span>
         </div>
     </div>
     <button type='button'
