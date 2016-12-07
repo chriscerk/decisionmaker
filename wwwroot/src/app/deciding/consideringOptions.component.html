@@ -1,29 +1,35 @@
-﻿<div *ngIf="options.length">
-    <h2>Consider your Options</h2>
+﻿<div *ngIf="options.length" class="center-block text-center">
+    <div class="help-text">
+        <strong>Consider Your Options</strong>
+    </div>
+    <br />
+    <br/>
     <div *ngFor="let option of options" class="input-group input-group-lg center-block text-center">
-        <div class="col-lg-4">
+        <div class="">
             <mdl-textfield type="text"
                            (keyup)="setOptions()"  
                            [(ngModel)]="option.name" 
                            id="optionName"
                            label="Option" 
-                           required>
+                           required
+                           floating-label>
             </mdl-textfield>
         </div>
-        <div class="col-lg-8" *ngIf="chosenGoals.length">
-            <span *ngFor="let goal of chosenGoals; let i = index;" >
+        <div class="" *ngIf="chosenGoals.length">
+            <div *ngFor="let goal of chosenGoals; let i = index;" >
                 <mdl-checkbox type="checkbox"
                               value="false"
                               [(ngModel)]="option.metGoals[i]"
+                              [mdl-ripple]="true"
                               id="goalName">
                     {{goal.name}}
                 </mdl-checkbox>
-            </span>
+                <br/>
+            </div>
         </div>
     </div>
-    <button type='button'
-            (click)="confirm()"
-            class="btn btn-success btn-lg">
+   <br/>
+    <button type='button' (click)="confirm()" mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
         Set Options
     </button>
 </div>

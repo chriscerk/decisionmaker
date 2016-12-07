@@ -25,6 +25,20 @@ body {
     font-size: 30px !important; }
   body .mdl-textfield__input {
     font-size: 25px; }
+  body .mdl-checkbox {
+    min-width: 50px;
+    max-width: 100px;
+    height: 40px; }
+  body .mdl-checkbox__box-outline {
+    box-sizing: border-box;
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgba(0, 0, 0, 0.54);
+    border-radius: 5px;
+    z-index: 2; }
+  body .mdl-checkbox__ripple-container {
+    width: 45px;
+    height: 45px; }
   body .mdl-button {
     border-radius: 7px;
     margin: 0;

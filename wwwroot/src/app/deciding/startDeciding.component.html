@@ -3,18 +3,18 @@
         <strong>What are deciding?</strong>
     </div>
     <br/>
+    <br />
     <div class="input-group input-group-lg center-block text-center col-lg-4">
         <mdl-textfield type="text"
                         [(ngModel)]="decision.name"
                         (keyup)="setName()"
                         (keyup.enter)="confirm()"
                         label="Decision Name (Buying a Car)"
-                        required>
+                        required
+                        floating-label>
         </mdl-textfield>
         <br />
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                (click)="confirm()"
-                type="submit">
+        <button type='button' (click)="confirm()" mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
             Name Decision
         </button>
     </div>

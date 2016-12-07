@@ -3,6 +3,7 @@
         <strong>Three goals that you'd like to achieve in making your decision.</strong>
     </div>
     <br/>
+    <br />
     <div class="input-group input-group-lg center-block text-center col-lg-6">
         <div *ngFor="let goal of goals">
             <div class="col-lg-6">
@@ -11,7 +12,8 @@
                                (keyup)="setGoals()" 
                                id="goalName" 
                                label="Goal"
-                               required>&nbsp;
+                               required
+                               floating-label>&nbsp;
                 </mdl-textfield>
             </div>
             <div class="col-lg-6">
@@ -27,14 +29,14 @@
                 </select>
             </div>
         </div>
-        <button type='button'
-                (click)="confirm()"
-                class="btn btn-success btn-lg">
+        <button type='button' (click)="confirm()" mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
             Set Goals
         </button>
     </div>
     <br/>
-    <button type='button' (click)="autoFill()" class="btn btn-default btn-lg">Autofill</button>
+    <button type='button' (click)="autoFill()" mdl-button mdl-button-type="raised" mdl-ripple>
+        Autofill
+    </button>
 </div>
 
 <div *ngIf="!goals.length">No goals found!</div>
