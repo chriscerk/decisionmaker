@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DecisionApiService } from '../core/services/decision.service';
 import { DecidingService } from './shared/deciding.service';
-import { IDecision, IOption, IGoal } from '../shared/interfaces';
+import { IDecision } from '../shared/interfaces';
 
 @Component({
     templateUrl: 'deciding.component.html',

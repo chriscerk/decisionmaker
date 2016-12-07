@@ -58,16 +58,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var interfaces_1 = __webpack_require__(140);
+var SignalR_service_1 = __webpack_require__(181);
 var AboutComponent = (function () {
-    function AboutComponent() {
+    function AboutComponent(signalRService) {
+        this.signalRService = signalRService;
     }
+    AboutComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var self = this;
+        self.signalRService.updateSignalRMessage.subscribe(function (message) {
+            console.log('received..');
+            console.log(message);
+            _this.myMessage = message;
+        });
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', (typeof (_a = typeof interfaces_1.ISignalRMessage !== 'undefined' && interfaces_1.ISignalRMessage) === 'function' && _a) || Object)
+    ], AboutComponent.prototype, "messages", void 0);
     AboutComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(177)
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_b = typeof SignalR_service_1.SignalRService !== 'undefined' && SignalR_service_1.SignalRService) === 'function' && _b) || Object])
     ], AboutComponent);
     return AboutComponent;
+    var _a, _b;
 }());
 exports.AboutComponent = AboutComponent;
 

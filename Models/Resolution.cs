@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace decisionmaker.Models
 {
-    public class Goal
+    public class Resolution
     {
         public Guid Id = Guid.NewGuid();
-        public Boolean IsLocked { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Rank { get; set; }
+        public List<string> Deciders { get; set; }
+        public string Result;
     }
 }

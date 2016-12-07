@@ -37,9 +37,9 @@ export class ResolutionComponent implements OnInit {
             }
         }
         if (best > -1) {
-            return this.decision.options[bestIndex].name + " is the wise choice.";
+            return this.decision.options[bestIndex].name + ' is the wise choice.';
         } else {
-            return "None of the options are a good decision.";
+            return 'None of the options are a good decision.';
         }
     }
 }

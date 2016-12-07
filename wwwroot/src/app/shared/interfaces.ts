@@ -40,8 +40,15 @@ export interface IRouting {
     components: any[]
 }
 
+
+export interface ISignalRMessage {
+    MatchId: number;
+    Text: string;
+    CreatedAt: Date;
+}
+
 export interface DecisionSignalR /*extends SignalR*/ {
-    broadcaster: DecisionProxy
+    broadcaster: DecisionProxy;
 }
 
 export interface DecisionProxy {
@@ -51,6 +58,7 @@ export interface DecisionProxy {
 
 export interface DecisionClient {
     setConnectionId: (id: string) => void;
+    updateSignalRMessage: (message: ISignalRMessage) => void;
     updateDecision: (decision: IDecision) => void;
     addDecision: (decision: IDecision) => void;
     addMessage: (message: string) => void;

@@ -81,7 +81,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6d5de3f85e2204d5318f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "86ce638cb8c3b18080fa"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -2423,10 +2423,10 @@ var ResolutionComponent = (function () {
             }
         }
         if (best > -1) {
-            return this.decision.options[bestIndex].name + " is the wise choice.";
+            return this.decision.options[bestIndex].name + ' is the wise choice.';
         }
         else {
-            return "None of the options are a good decision.";
+            return 'None of the options are a good decision.';
         }
     };
     ResolutionComponent = __decorate([
@@ -13726,26 +13726,33 @@ var common_1 = __webpack_require__(3);
 var decision_service_1 = __webpack_require__(12);
 var goal_service_1 = __webpack_require__(78);
 var option_service_1 = __webpack_require__(79);
+var SignalR_service_1 = __webpack_require__(181);
 var deciding_service_1 = __webpack_require__(6);
 var ensureModuleLoadedOnceGuard_1 = __webpack_require__(139);
 var CoreModule = (function (_super) {
     __extends(CoreModule, _super);
     // Looks for the module in the parent injector to see if it's already been loaded (only want it loaded once)
-    function CoreModule(parentModule) {
+    function CoreModule(signalRService, parentModule) {
         _super.call(this, parentModule);
+        this.signalRService = signalRService;
     }
+    CoreModule.prototype.ngOnInit = function () {
+        this.signalRService.start(true)
+            .subscribe(null, function (error) { return console.log('Error starting SignalR: ' + error); });
+    };
     CoreModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule],
             declarations: [],
             exports: [common_1.CommonModule],
-            providers: [decision_service_1.DecisionApiService, goal_service_1.GoalApiService, option_service_1.OptionApiService, deciding_service_1.DecidingService] // these should be singleton
+            providers: [SignalR_service_1.SignalRService, decision_service_1.DecisionApiService, goal_service_1.GoalApiService, option_service_1.OptionApiService, deciding_service_1.DecidingService] // these should be singleton
         }),
-        __param(0, core_1.Optional()),
-        __param(0, core_1.SkipSelf()), 
-        __metadata('design:paramtypes', [CoreModule])
+        __param(1, core_1.Optional()),
+        __param(1, core_1.SkipSelf()), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof SignalR_service_1.SignalRService !== 'undefined' && SignalR_service_1.SignalRService) === 'function' && _a) || Object, CoreModule])
     ], CoreModule);
     return CoreModule;
+    var _a;
 }(ensureModuleLoadedOnceGuard_1.EnsureModuleLoadedOnceGuard));
 exports.CoreModule = CoreModule;
 
@@ -14996,6 +15003,90 @@ module.exports = (__webpack_require__(2))(791);
 __webpack_require__(87);
 module.exports = __webpack_require__(86);
 
+
+/***/ },
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var http_1 = __webpack_require__(7);
+__webpack_require__(182);
+var Subject_1 = __webpack_require__(4);
+var interfaces_1 = __webpack_require__(140);
+var SignalRService = (function () {
+    function SignalRService(http) {
+        this.http = http;
+        this.currentState = interfaces_1.SignalRConnectionStatus.Disconnected;
+        this.connectionStateSubject = new Subject_1.Subject();
+        this.setConnectionIdSubject = new Subject_1.Subject();
+        this.updateSignalRMessageSubject = new Subject_1.Subject();
+        this.connectionState = this.connectionStateSubject.asObservable();
+        this.setConnectionId = this.setConnectionIdSubject.asObservable();
+        this.updateSignalRMessage = this.updateSignalRMessageSubject.asObservable();
+    }
+    SignalRService.prototype.start = function (debug) {
+        // TODO: Need to reference JQuery for SignalR to be of use
+        //$.connection.hub.logging = debug;
+        //let connection = <DecisionSignalR>$.connection;
+        //let decisionHub = connection.broadcaster;
+        //this.server = decisionHub.server;
+        //decisionHub.client.setConnectionId = id => this.onSetConnectionId(id);
+        //decisionHub.client.updateSignalRMessage = SignalRMessage => this.onAddSignalRMessage(SignalRMessage);
+        //$.connection.hub.start()
+        //    .done(response => this.setConnectionState(SignalRConnectionStatus.Connected))
+        //    .fail(error => this.connectionStateSubject.error(error));
+        return this.connectionState;
+    };
+    SignalRService.prototype.setConnectionState = function (connectionState) {
+        console.log('connection state changed to ' + connectionState);
+        this.currentState = connectionState;
+        this.connectionStateSubject.next(connectionState);
+    };
+    SignalRService.prototype.onSetConnectionId = function (id) {
+        this.setConnectionIdSubject.next(id);
+    };
+    SignalRService.prototype.onAddSignalRMessage = function (message) {
+        this.updateSignalRMessageSubject.next(message);
+    };
+    SignalRService.prototype.subscribeToDecision = function (matchId) {
+        this.server.subscribe(matchId);
+    };
+    SignalRService.prototype.unsubscribeFromDecision = function (matchId) {
+        this.server.unsubscribe(matchId);
+    };
+    SignalRService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+    ], SignalRService);
+    return SignalRService;
+    var _a;
+}());
+exports.SignalRService = SignalRService;
+
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(2))(1123);
 
 /***/ }
 /******/ ]);

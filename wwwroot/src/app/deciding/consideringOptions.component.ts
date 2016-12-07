@@ -5,8 +5,6 @@ import { IOption, IGoal } from '../shared/interfaces';
 import { OptionApiService } from '../core/services/option.service';
 import { DecidingService } from './shared/deciding.service';
 
-import { Subscription } from 'rxjs/Subscription';
-
 @Component({
     templateUrl: 'consideringOptions.component.html'
 })
