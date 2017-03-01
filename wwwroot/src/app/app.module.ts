@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
-import { MaterialModule } from '@angular/material';
 import { UniversalModule } from 'angular2-universal';
 import { MdlModule } from 'angular2-mdl';
 
@@ -25,7 +24,6 @@ import '../styles.scss';
         SharedModule,
         Ng2BootstrapModule,
         MdlModule,
-        MaterialModule.forRoot()
     ],
     bootstrap: [AppComponent]
 })

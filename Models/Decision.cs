@@ -12,6 +12,9 @@ namespace decisionmaker.Models
         public string Description { get; set; }
         public Goal[] Goals { get; set; }
         public Option[] Options { get; set; }
-        public Resolution Resolution { get; set; }
+        public string Results { get; set; }
+        public List<Decider> Deciders;
+        // public Dictionary<Guid, Role>
+        // TODO: public Resolution Resolution { get; set; }
     }
 }

@@ -47,7 +47,7 @@ export interface ISignalRMessage {
     CreatedAt: Date;
 }
 
-export interface DecisionSignalR /*extends SignalR*/ {
+export interface DecisionSignalR extends SignalR {
     broadcaster: DecisionProxy;
 }
 

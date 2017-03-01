@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 174:
+/***/ 60:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15,10 +15,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(3);
-var ng2_bootstrap_1 = __webpack_require__(32);
-var about_routing_module_1 = __webpack_require__(176);
-var about_component_1 = __webpack_require__(175);
+var common_1 = __webpack_require__(7);
+var ng2_bootstrap_1 = __webpack_require__(14);
+var about_routing_module_1 = __webpack_require__(62);
+var about_component_1 = __webpack_require__(61);
 var AboutModule = (function () {
     function AboutModule() {
     }
@@ -43,7 +43,7 @@ exports.AboutModule = AboutModule;
 
 /***/ },
 
-/***/ 175:
+/***/ 61:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58,20 +58,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var interfaces_1 = __webpack_require__(140);
-var SignalR_service_1 = __webpack_require__(181);
+var interfaces_1 = __webpack_require__(13);
+var SignalR_service_1 = __webpack_require__(25);
 var AboutComponent = (function () {
     function AboutComponent(signalRService) {
         this.signalRService = signalRService;
     }
     AboutComponent.prototype.ngOnInit = function () {
-        var _this = this;
         var self = this;
-        self.signalRService.updateSignalRMessage.subscribe(function (message) {
-            console.log('received..');
-            console.log(message);
-            _this.myMessage = message;
-        });
+        console.log('About Component Initialized');
+        //TODO: SignalR Fix
+        //self.signalRService.updateSignalRMessage.subscribe(
+        //    message => {
+        //        console.log('received..');
+        //        console.log(message);
+        //        this.myMessage = message;
+        //    }
+        //);
     };
     __decorate([
         core_1.Input(), 
@@ -79,7 +82,7 @@ var AboutComponent = (function () {
     ], AboutComponent.prototype, "messages", void 0);
     AboutComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(177)
+            template: __webpack_require__(63)
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof SignalR_service_1.SignalRService !== 'undefined' && SignalR_service_1.SignalRService) === 'function' && _b) || Object])
     ], AboutComponent);
@@ -91,7 +94,7 @@ exports.AboutComponent = AboutComponent;
 
 /***/ },
 
-/***/ 176:
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -106,8 +109,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(8);
-var about_component_1 = __webpack_require__(175);
+var router_1 = __webpack_require__(3);
+var about_component_1 = __webpack_require__(61);
 var routes = [
     { path: '', component: about_component_1.AboutComponent }
 ];
@@ -130,10 +133,10 @@ exports.AboutRoutingModule = AboutRoutingModule;
 
 /***/ },
 
-/***/ 177:
+/***/ 63:
 /***/ function(module, exports) {
 
-module.exports = "<h1>About</h1>\r\n<p>A web application for making decisions.</p>";
+module.exports = "<h1>About</h1>\r\n<p>Currently used to test the SignalR service.</p>";
 
 /***/ }
 

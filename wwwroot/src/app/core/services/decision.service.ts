@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { IDecision } from '../../shared/interfaces.ts';
+import { IDecision } from '../../shared/interfaces';
 import 'rxjs/Rx';
 
 @Injectable()

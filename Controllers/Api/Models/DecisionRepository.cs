@@ -9,14 +9,8 @@ namespace decisionmaker.Controllers.Api.Models
 {
     public class DecisionRepository : IDecisionRepository
     {
-        public DecisionRepository()
-        {
-            
-        }
-
         private static ConcurrentDictionary<string, Decision> _decisions =
               new ConcurrentDictionary<string, Decision>();
-
 
         public void Add(Decision decision)
         {

@@ -7,9 +7,7 @@
     "emitDecoratorMetadata": true,
     "skipDefaultLibCheck": true,
     "lib": [ "es6", "dom" ],
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "typeRoots": [ "./node_modules/@types" ]
   },
   "exclude": [ "bin", "node_modules" ],
   "awesomeTypescriptLoaderOptions": {
