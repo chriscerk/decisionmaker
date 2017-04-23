@@ -239,8 +239,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # compiled output
 /dist
 /tmp
@@ -273,6 +271,10 @@ npm-debug.log
 testem.log
 /typings
 /src/environments/firebase.config.ts
+
+# Publish Profile Properties
+/Properties/PublishProfiles
+
 
 # e2e
 /e2e/*.js
