@@ -1,4 +1,4 @@
-﻿import { NgModule, Optional, SkipSelf, OnInit } from '@angular/core';
+﻿import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DecisionApiService } from './services/decision.service';

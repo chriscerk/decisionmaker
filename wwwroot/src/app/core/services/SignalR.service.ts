@@ -13,9 +13,7 @@ import {
     ISignalRMessage,
     SignalRConnectionStatus,
     DecisionServer,
-    DecisionSignalR,
-    DecisionClient,
-    DecisionProxy } from '../../shared/interfaces';
+    DecisionSignalR } from '../../shared/interfaces';
 
 @Injectable()
 export class SignalRService {
@@ -32,19 +30,19 @@ export class SignalRService {
     private server: DecisionServer;
 
     constructor(private http: Http) {
-        //TODO: SignalR Fix
-        //this.connectionState = this.connectionStateSubject.asObservable();
-        //this.setConnectionId = this.setConnectionIdSubject.asObservable();
-        //this.updateSignalRMessage = this.updateSignalRMessageSubject.asObservable();
+        // TODO: SignalR Fix
+        // this.connectionState = this.connectionStateSubject.asObservable();
+        // this.setConnectionId = this.setConnectionIdSubject.asObservable();
+        // this.updateSignalRMessage = this.updateSignalRMessageSubject.asObservable();
     }
 
     start(debug: boolean): Observable<SignalRConnectionStatus> {
 
         if (isBrowser) {
-            console.log("Starting SignalR service in browser");
+            console.log('Starting SignalR service in browser');
         }
 
-        //$.connection.hub.logging = debug;
+        // $.connection.hub.logging = debug;
 
         let connection = <DecisionSignalR>$.connection;
         let decisionHub = connection.broadcaster;

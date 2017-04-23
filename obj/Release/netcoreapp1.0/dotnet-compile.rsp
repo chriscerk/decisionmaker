@@ -1,12 +1,12 @@
---temp-output:C:\Code\decisionmaker\src\decisionmaker\obj\Debug\netcoreapp1.0\
---out:C:\Code\decisionmaker\src\decisionmaker\bin\Debug\netcoreapp1.0\decisionmaker.dll
---define:DEBUG
+--temp-output:C:\Code\decisionmaker\src\decisionmaker\obj\Release\netcoreapp1.0\
+--out:C:\Code\decisionmaker\src\decisionmaker\bin\Release\netcoreapp1.0\decisionmaker.dll
+--define:RELEASE
 --define:TRACE
 --define:NETCOREAPP1_0
 --suppress-warning:CS1701
 --suppress-warning:CS1702
 --suppress-warning:CS1705
---optimize:False
+--optimize:True
 --debug-type:portable
 --emit-entry-point:True
 --output-name:decisionmaker
@@ -217,7 +217,7 @@
 --reference:C:\Users\Christopher\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\Christopher\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll
 --reference:C:\Users\Christopher\.nuget\packages\System.Xml.XPath\4.0.1\ref\netstandard1.3\System.Xml.XPath.dll
---resource:"C:\Code\decisionmaker\src\decisionmaker\obj\Debug\netcoreapp1.0\decisionmakerdotnet-compile.deps.json",decisionmaker.deps.json
+--resource:"C:\Code\decisionmaker\src\decisionmaker\obj\Release\netcoreapp1.0\decisionmakerdotnet-compile.deps.json",decisionmaker.deps.json
 C:\Code\decisionmaker\src\decisionmaker\Program.cs
 C:\Code\decisionmaker\src\decisionmaker\Startup.cs
 C:\Code\decisionmaker\src\decisionmaker\Controllers\HomeController.cs

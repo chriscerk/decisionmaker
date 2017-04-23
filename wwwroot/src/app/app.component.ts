@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         if (isBrowser) {
-            //TODO: SignalR Fix
-            //console.log("Starting SignalR service in browser");
-            //this.service.start(true).subscribe(
+            // TODO: SignalR Fix
+            // console.log("Starting SignalR service in browser");
+            // this.service.start(true).subscribe(
             //    null,
             //    error => console.log('Error on init: ' + error));
         }

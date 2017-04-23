@@ -15,16 +15,16 @@ export class AboutComponent implements OnInit {
     constructor(private signalRService: SignalRService) { }
 
     ngOnInit() {
-        let self = this;
+        // let self = this;
         console.log('About Component Initialized');
 
-        //TODO: SignalR Fix
-        //self.signalRService.updateSignalRMessage.subscribe(
+        // TODO: SignalR Fix
+        // self.signalRService.updateSignalRMessage.subscribe(
         //    message => {
         //        console.log('received..');
         //        console.log(message);
         //        this.myMessage = message;
         //    }
-        //);
+        // );
     }
 }
